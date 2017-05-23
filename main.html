@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Photobooth</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<meta name="viewport" content="width=device-width">
+</head>
+<body>
+	<div id="header">
+		<img alt="Photobooth." src="Assets/photoboothLogo.png"/>
+	</div>
+	<hr>
+
+	<div id="mainContent">
+		<div id="images"> 
+			<img alt="img" id="theImage"/>
+		</div>
+		<div id="sideBar">
+			<div id="uploadBox">
+				<div id="upload">
+					<img alt="uploadImg" src="Assets/uploadIcon-01.png"/>
+					Upload
+				</div>
+				<div id="uploadDetail">
+					<input id="fileSelector" class="uploadDetailButton" type="file"> choose file... </input>
+					<button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload </button>
+				</div>
+			</div>
+			<div id="filterBox">
+				<div id="filter">
+					<img alt="filterImg" src="Assets/filterIcon-01.png"/>
+					Filter
+				</div>
+				<div id="filterDetail">
+					<input id="filterInput" type="text" placeholder="filter"/>
+					<div id="filterButtons">
+						<button class="filterDetailButton" type="button"> enter </button>
+						<button class="filterDetailButton" type="button"> clear filter </button>
+					</div>
+				</div>
+			</div>
+			<div id="favorites">
+				<img alt="favoritesImg" src="Assets/favoritesIcon.png"/>
+				Favorites
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+<script type="text/javascript" src="main.js"> </script>
