@@ -20,7 +20,12 @@ hr {
 }
 
 #images {
-	flex-grow: 3;
+	flex-grow: 4;
+}
+
+#imageContainer {
+	width: 250px;
+	height: 250px;
 }
 
 #sideBar {
