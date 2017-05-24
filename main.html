@@ -19,35 +19,37 @@
 				<input id="hamburgerButton" type="image" src="Assets/optionsTriangle.png" style="display: none"/>
 			</div>
 		</div>
-		<div id="sideBar">
-			<div id="uploadBox">
-				<div id="upload">
-					<img alt="uploadImg" src="Assets/uploadIcon-01.png"/>
-					Upload
-				</div>
-				<div id="uploadDetail">
-					<input id="fileSelector" class="uploadDetailButton" type="file"/>
-					<button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload </button>
-				</div>
+				<div class = "encompass">	
+			    <nav id="menu_box">
+			       
+			        <ul class="menu">
+			                <li> <a href="#"><img src="Assets/uploadIcon-01.png" alt="Logo">Upload</a>
+			                
+			                        <ul>
+			                        <li>
+			                          <a href="#">
+			                             <input id="fileSelector" class="uploadDetailButton" type="file">  </input>
+			                             	<br>
+			                             <button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload</button>
+			                          </a>
+			                        </li>
+			                        </ul>
+			                </li>
+			                
+			                <li> <a href="#"><img src="Assets/filterIcon-01.png" alt="Logo">filter</a>
+			                        <ul>
+			                        <li><a href="#"><form>
+			                        <input type="text" name="search" placeholder="Search..">
+			                        </form></a></li>    
+			                        </ul>
+			                </li>
+
+			                <li>  <a href="#"><img src="Assets/favoritesIcon.png" alt="Logo">favorites</a> </li>
+			          
+			        </ul>
+
+			    </nav>
 			</div>
-			<div id="filterBox">
-				<div id="filter">
-					<img alt="filterImg" src="Assets/filterIcon-01.png"/>
-					Filter
-				</div>
-				<div id="filterDetail">
-					<input id="filterInput" type="text" placeholder="filter"/>
-					<div id="filterButtons">
-						<button class="filterDetailButton" type="button"> enter </button>
-						<button class="filterDetailButton" type="button"> clear filter </button>
-					</div>
-				</div>
-			</div>
-			<div id="favorites">
-				<img alt="favoritesImg" src="Assets/favoritesIcon.png"/>
-				Favorites
-			</div>
-		</div>
 	</div>
 </body>
 </html>
