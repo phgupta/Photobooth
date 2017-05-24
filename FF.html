@@ -9,105 +9,62 @@
 
 </head>
 <body>
-<!--
-<div style="width:930px; background-color:white; height:150px; overflow:auto;">
-		<div style="width: 900px; height: 90px;">
-			
-  <div class="content">
-	<img src="./Flexbox example_files/photobooth/photoboothlogo.png" alt="Logo"> 
 
-	<p>Tools </p>
-</div>
-</div>
-</div>
 
-<div style="width:930px; background-color:white; height:450px; float:right; overflow:auto;">
-		<div style="width: 900px; height: 400px;">
-<div class="vertical-menu">
-  <a href="#" class="active">upload</a>
-  <a href="#" class="active">filter</a>
-  <a href="#" class="active">favorites</a>
-</div>
-</div>
-</div>
+     <header>
+     	
+          <img src="./Flexbox example_files/photobooth/photoboothlogo.png" alt="Logo"> 
 
--->
+    </header>
 
- <header>
- 	
-<img src="./Flexbox example_files/photobooth/photoboothlogo.png" alt="Logo"> 
-
- <p align = "right"> Tools </p>
-
- </header>
- <div id='main'>
-    <article>article
-    
-	</article>   
+ 
+<div id='main'>
+    <article>
+            <div id="images"> 
+              <img alt="img" id="theImage"/>
+            </div>
+	  </article>   
 
     <aside>
-      <!---
-    	<div class = "upload">
-    
-    			
-    			<input type="image" id="fileSelector">
-				<button id="uploadButton" onclick="uploadFile()"> <img src="./Flexbox example_files/photobooth/uploadIcon-01.png" alt="Logo"> </button>
-    		
-    
-    		</div>
-    	<div class = "filter">	    	
-    	<img src="./Flexbox example_files/photobooth/filterIcon-01.png" alt="Logo"> 
-    	<form>
-  <input type="text" name="search" placeholder="filter..">
-</form>
-    			
-    		</div>
-    		<div class = "favorite">
-    	<img src="./Flexbox example_files/photobooth/favoritesIcon.png" alt="Logo"> 
-    			FAVORITE
-    	</div>
-    -->
+
     <nav id="menu_box">
-  <ul class="menu">
-    <li> <a href="#"><img src="./Flexbox example_files/photobooth/uploadIcon-01.png" alt="Logo">Upload</a>
-      <ul>
-        <li><input type="file"id="fileSelector">
-<button id="uploadButton" onclick="uploadFile()">upload</button></li>
        
-      </ul>
-    </li>
-    <li> <a href="#"><img src="./Flexbox example_files/photobooth/filterIcon-01.png" alt="Logo">filter</a>
-      <ul>
-        <li><a href="#"><form>
-  <input type="text" name="search" placeholder="Search..">
-</form></a></li>
-        
-      </ul>
-    </li>
-    <li> <a href="#">Menu 3</a>
-      <ul>
-        <li><a href="#">Menu 3.1</a></li>
-        <li><a href="#">Menu 3.2</a></li>
-        <li><a href="#">Menu 3.3</a></li>
-        <li><a href="#">Menu 3.4</a></li>
-      </ul>
-    </li>
-    
-  </ul>
-</nav>
+        <ul class="menu">
+                <li> <a href="#"><img src="./Flexbox example_files/photobooth/uploadIcon-01.png" alt="Logo">Upload</a>
+                
+                        <ul>
+                        <li>
+                         <input id="fileSelector" class="uploadDetailButton" type="file">  </input>
+                         <button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload</button>
+                      </li>
+                        </ul>
+                </li>
+                
+                <li> <a href="#"><img src="./Flexbox example_files/photobooth/filterIcon-01.png" alt="Logo">filter</a>
+                        <ul>
+                        <li><a href="#"><form>
+                        <input type="text" name="search" placeholder="Search..">
+                        </form></a></li>    
+                        </ul>
+                </li>
+
+                <li>  <a href="#"><img src="./Flexbox example_files/photobooth/favoritesIcon.png" alt="Logo">favorites</a> </li>
+          
+        </ul>
+
+    </nav>
 
     </aside>
  </div>
- <footer>footer</footer>
+
 
 
 	
 
-<input type="file"id="fileSelector">
-<button id="uploadButton" onclick="uploadFile()">upload</button>
+
 
 
 <script src="./Flexbox example_files/photo.js"></script>
-
+<script src="./Flexbox example_files/main.js"></script>
 
 </body></html>
