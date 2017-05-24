@@ -45,11 +45,11 @@ hr {
 #uploadDetail {
 	display: flex;
 	flex-direction: column;
-	background-color: #F5DEB3;
+	background-color: #BC8F8F;
 }
 
 .uploadDetailButton {
-	width: 25%;
+	width: 35%;
 	margin: 2%;
 	background-color: #8B4513;
 	color: #ffffff;
@@ -60,7 +60,7 @@ hr {
 }
 
 #filterDetail {
-	background-color: #F5DEB3;
+	background-color: #BC8F8F;
 }
 
 #filterInput {
