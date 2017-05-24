@@ -15,41 +15,40 @@
 	<div id="mainContent">
 		<div id="images"> 
 			<div id="imageContainer">
-				<img alt="img" id="theImage"/>
+				<img id="theImage"/>
 				<input id="hamburgerButton" type="image" src="Assets/optionsTriangle.png" style="display: none"/>
 			</div>
 		</div>
-				<div class = "encompass">	
-			    <nav id="menu_box">
-			       
-			        <ul class="menu">
-			                <li> <a href="#"><img src="Assets/uploadIcon-01.png" alt="Logo">Upload</a>
-			                
-			                        <ul>
-			                        <li>
-			                          <a href="#">
-			                             <input id="fileSelector" class="uploadDetailButton" type="file">  </input>
-			                             	<br>
-			                             <button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload</button>
-			                          </a>
-			                        </li>
-			                        </ul>
-			                </li>
-			                
-			                <li> <a href="#"><img src="Assets/filterIcon-01.png" alt="Logo">filter</a>
-			                        <ul>
-			                        <li><a href="#"><form>
-			                        <input type="text" name="search" placeholder="Search..">
-			                        </form></a></li>    
-			                        </ul>
-			                </li>
 
-			                <li>  <a href="#"><img src="Assets/favoritesIcon.png" alt="Logo">favorites</a> </li>
-			          
-			        </ul>
+		<!-- Added: Everything under div - encompass, menu_box-->
+		<div class = "encompass">	
+			<nav id="menu_box">
+				<ul class="menu">
+					<li> 
+						<a href="#"><img src="Assets/uploadIcon-01.png" alt="Logo">Upload</a>
+						<ul>
+							<li>
+								<a href="#">
+									<input id="fileSelector" class="uploadDetailButton" type="file">  </input>
+									<br>
+									<button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload</button>
+								</a>
+							</li>
+						</ul>
+					</li>
 
-			    </nav>
-			</div>
+					<li> 
+						<a href="#"><img src="Assets/filterIcon-01.png" alt="Logo">filter</a>
+						<ul>
+							<li>
+								<a href="#"><form> <input type="text" name="search" placeholder="Search.."> </form></a>
+							</li>    
+						</ul>
+					</li>
+					<li>  <a href="#"><img src="Assets/favoritesIcon.png" alt="Logo">favorites</a> </li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 </body>
 </html>

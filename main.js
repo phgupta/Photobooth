@@ -1,6 +1,5 @@
 function uploadButtonPressed() {
 
-	
 	var url = "http://138.68.25.50:7821/main";
 
 	var selectedFile = document.getElementById('fileSelector').files[0];
@@ -14,7 +13,6 @@ function uploadButtonPressed() {
 		console.log(oReq.responseText);
 	}
 	oReq.send(formData);
-
 
 	// Displays image to webpage
 	var image = document.getElementById('theImage');
