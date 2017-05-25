@@ -4,6 +4,12 @@ var formidable = require('formidable');
 
 var app = express();
 
+// Database
+var sqlite3 = require("sqlite3").verbose();
+var dbFile = "photos.db";
+var db = new sqlite3.Database(dbFile);
+
+// MAIN
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
@@ -20,11 +26,27 @@ app.post('/main', function (req, res) {
 
 	form.on('fileBegin', function (name, file) {
 		file.path = __dirname + '/public/Uploads/' + file.name;
-		console.log("uploading...", file.name, name);
+		console.log("Uploading...", file.name, name);
+	
+		
+		db.serialize(function () {
+
+			console.log("file.name = ", file.name, "\n");
+			db.run('INSERT OR REPLACE INTO PhotoLabels VALUES (?, "", 0)', [file.name], function errorCallBack(err, tableData) {
+				if (err) {
+					console.log("error: ", err);
+				}
+
+				else {
+					console.log("got: ", tableData, "\n");
+				}
+			});
+		});
+		
 	});
 
 	form.on('end', function () {
-		console.log('success');
+		console.log('Success!');
 		res.status(201);
 		res.send('recieved file');
 	});
