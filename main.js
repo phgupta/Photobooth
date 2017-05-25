@@ -3,7 +3,9 @@ function uploadButtonPressed() {
 	var url = "http://138.68.25.50:7821/main";
 
 	var selectedFile = document.getElementById('fileSelector').files[0];
+	
 	console.log(selectedFile.name);
+	
 	var formData = new FormData(); 
 	formData.append("userfile", selectedFile);
 
@@ -34,4 +36,26 @@ function uploadButtonPressed() {
 	};
 
 	fr.readAsDataURL(selectedFile);
+}
+
+function show_favs_tags(){
+	var x = document.getElementsByClassName('show_favorites_tags');
+	
+	console.log(x[0]);
+    if (x[0].style.display === 'block') {
+        x[0].style.display = 'none';
+    } else {
+        x[0].style.display = 'block';
+    }
+
+}
+
+
+function add_favs_tags() {
+	
+	var div_selec = document.getElementById('add_html');
+	var inner = "<div class=\"show_favorites_tags\">";
+	inner = inner + "<button class = \"change_tag\" onclick=\"change_tags('image_id')\">change tags</button>";
+	inner = inner + "<button class = \"add_to_favs\" onclick=\"add_to_favs('image_id')\">add to favorites</button>" + "</div>";
+	div_selec.innerHTML=inner;
 }

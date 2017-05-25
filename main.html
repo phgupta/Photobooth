@@ -22,10 +22,16 @@
 		<div id="images"> 
 			<div id="imageContainer">
 				<img id="theImage"/>
-				<input id="hamburgerButton" type="image" src="Assets/optionsTriangle.png" style="display: none"/>
+				<div class="show_favorites_tags" style="display: none"> 
+					
+					<button class = "change_tag" onclick="change_tags('image_id')">change tags</button>
+					<button class = "add_to_favs" onclick="add_to_favs('image_id')">add to favorites</button>
+					
+				</div>
+				<input id="hamburgerButton" type="image" onclick="show_favs_tags()" src="Assets/optionsTriangle.png" style="display: none"/>
 			</div>
 
-			<form> <input type="text" name="label" placeholder="label"> </form>
+			<!-- <form> <input type="text" name="label" placeholder="label"> </form> -->
 		</div>
 
 		<!-- Added: Everything under div - encompass, menu_box-->
@@ -61,4 +67,4 @@
 </body>
 </html>
 
-<script type="text/javascript" src="main.js"> </script>
+<script  src="main.js"> </script>

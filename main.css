@@ -24,8 +24,8 @@ hr {
 }
 
 #imageContainer {
-	width: 250px;
-	height: 250px;
+	height:330px;
+	width:310px;
 }
 
 .uploadDetailButton {
@@ -46,7 +46,6 @@ input[type=text] {
   font-size: 16px;
   color: black;
   background-color: white;
-  background-image: url('searchicon.png');
   background-position: 10px 10px; 
   background-repeat: no-repeat;
   padding: 0px 90px 10px 0px;
@@ -150,3 +149,80 @@ input[type=text]:focus {
 	height: 100vh;
 	background:#885541;;
 }
+
+.show_favorites_tags{
+	border-style: solid;
+    border-width: 1px;
+	width:155px;
+	height:120px;
+	background-color:#885541;
+	display: inline-block;
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+}
+
+.change_tag {
+   display:inline;
+   border-bottom: 1px solid #000000;
+   background: #885541;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: white;
+   font-size: 22px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+   vertical-align: middle;
+    outline:none;
+    cursor:pointer;
+    overflow: hidden;
+    background-color:#885541;
+    width:155px;
+	height:35px;
+	
+ }
+
+.change_tag:hover {
+   border-top-color: #45261b;
+   background: #45261b;
+   color: #ccc;
+   }
+.change_tag:active {
+   border-top-color: #4d2314;
+   background: #4d2314;
+   }
+
+
+.add_to_favs {
+   display:inline;
+   border-bottom: 1px solid #000000;
+   background: #885541;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: white;
+   font-size: 22px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+   vertical-align: middle;
+    outline:none;
+    cursor:pointer;
+    overflow: hidden;
+    background-color:#885541;
+    width:155px;
+	height:35px;
+	
+ }
+
+.add_to_favs:hover {
+   border-top-color: #45261b;
+   background: #45261b;
+   color: #ccc;
+   }
+.add_to_favs:active {
+   border-top-color: #4d2314;
+   background: #4d2314;
+   }
+
+
