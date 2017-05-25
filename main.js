@@ -1,14 +1,18 @@
+var dictionary = {};
+
+
 function uploadButtonPressed() {
 
 	var url = "http://138.68.25.50:7821/main";
 
 	var selectedFile = document.getElementById('fileSelector').files[0];
 	
-	console.log(selectedFile.name);
+	//console.log(selectedFile.name);
 	
 	var formData = new FormData(); 
 	formData.append("userfile", selectedFile);
 
+	
 	var oReq = new XMLHttpRequest();
 	oReq.open("POST", url, true);  
 
@@ -27,6 +31,7 @@ function uploadButtonPressed() {
 		image.src = fr.result;
 		image.style.width = "100%";
 		image.style.height = "100%";
+		image.alt = selectedFile.name;
 
 		imageContainer.style.position = "relative";
 		hamburgerButton.style.display = "inline-block";
@@ -36,6 +41,28 @@ function uploadButtonPressed() {
 	};
 
 	fr.readAsDataURL(selectedFile);
+	
+	var labels_field = document.getElementsByClassName('labels_field');
+		if (labels_field[0].style.display === 'none') {
+        labels_field[0].style.display = 'block';
+    } else {
+        labels_field[0].style.display = 'block';
+    }
+    
+    
+    	// add picture name to dictionary
+	if(!(dictionary[selectedFile.name]))
+	{
+		dictionary[selectedFile.name] = 0;
+	}
+	
+	var add_num = Object.keys(dictionary).length;
+	var add_button = document.getElementsByClassName('my_button');
+	
+	add_button[add_num-1].onclick = function() {
+			add_label(selectedFile.name);}
+			
+	
 }
 
 function show_favs_tags(){
@@ -70,25 +97,68 @@ function change_tags(image_id)
         label_form[0].style.display = 'block';
     }
 
-	
+
 	var add_button = document.getElementsByClassName('my_button');
 	if (add_button[0].style.display === 'block') {
         add_button[0].style.display = 'none';
     } else {
         add_button[0].style.display = 'block';
     }
+    
+    var x_image = document.getElementsByClassName('x_image');
+   
+   var num_xes = x_image.length;
+   for(var iter = 0; iter<num_xes; iter++)
+   {
+	   
+		if (x_image[iter].style.display === 'none') {
+			x_image[iter].style.display = 'inline';
+		} else {
+			x_image[iter].style.display = 'none';
+		}
+   }
 }
+var label_count = 0;
 
-
-function add_label(label) {
+function add_label(image_name) {
 
 	var button = document.getElementsByClassName('label_input');
 	var button_value = button[0].value;
 	
-	var innher = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\"/>" + button_value+ "</p>";
+	
+	var image_index = -1;		// index of the calling image
+	for(var key in dictionary)
+	{
+		if(key ==image_name) {
+			image_index++;
+			break;   }
+	}
+	
+	
+	var num_labels = dictionary[image_name]; 
 	var labels_field = document.getElementsByClassName('labels_field');
-	labels_field[0].innerHTML = innher;
+	
+	if(num_labels < 10){
+		//<p class="a_label" id="label_ten" style="display: none"> <img src="Assets/removeTagButton.png" alt="x" class="x_image"/> </p>
+		var current_content = labels_field[image_index].innerHTML;
+		var new_label = "<p class=\"a_label\" id=\"label_ten\" style=\"display: in-line\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\"/>" + button_value+ "</p>";
+		labels_field[image_index].innerHTML = current_content + new_label;
+		dictionary[image_name]++;
+		
+		
+	}
+	else{
+		console.log(image_name + " has 10 labels already.");
+	}
+		
 	
 	
+	
+
 }
 
+
+function say_hello() {
+	
+	console.log("Hello");
+}
