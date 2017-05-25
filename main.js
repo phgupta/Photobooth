@@ -53,11 +53,8 @@ function change_tags(image_id)
 {
 	var labels_field = document.getElementsByClassName('labels_field');
 	
-	console.log(labels_field[0]);
 	if(labels_field[0].style.backgroundColor=="rgb(194, 166, 156)"){
-		console.log("Hello World");
 		labels_field[0].style.backgroundColor="rgb(255, 255, 255)";
-		
 	}
 	else
 	{
@@ -81,3 +78,17 @@ function change_tags(image_id)
         add_button[0].style.display = 'block';
     }
 }
+
+
+function add_label(label) {
+
+	var button = document.getElementsByClassName('label_input');
+	var button_value = button[0].value;
+	
+	var innher = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\"/>" + button_value+ "</p>";
+	var labels_field = document.getElementsByClassName('labels_field');
+	labels_field[0].innerHTML = innher;
+	
+	
+}
+
