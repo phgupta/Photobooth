@@ -3,6 +3,7 @@ function uploadButtonPressed() {
 	var url = "http://138.68.25.50:7821/main";
 
 	var selectedFile = document.getElementById('fileSelector').files[0];
+	console.log(selectedFile.name);
 	var formData = new FormData(); 
 	formData.append("userfile", selectedFile);
 
