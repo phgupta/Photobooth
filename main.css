@@ -38,10 +38,13 @@ hr {
 /* Added: Everything below */
 
 input[type=text] {
-  width: 150px;
+
+  width: 315px;
   box-sizing: border-box;
   height: 30px;
-  border: 2px solid #ccc;
+  border-bottom: 2px solid #000000;
+  border-right: 2px solid #000000;
+  border-left: 2px solid #000000;
   border-radius: 4px;
   font-size: 16px;
   color: black;
@@ -60,7 +63,10 @@ input[type=text] {
   width: 350px;
 }
 
-.menu li { list-style: none; }
+.menu li { 
+	list-style: none; 
+	font-size:28px;
+}
 
 .menu li a {
   display: table;
@@ -141,13 +147,11 @@ input[type=text] {
   flex-grow: 3;
 }
 
-input[type=text]:focus {
-  width: 100%;
-}
 
 .encompass{
 	height: 100vh;
-	background:#885541;;
+	background:#885541;
+	
 }
 
 .show_favorites_tags{
@@ -224,5 +228,45 @@ input[type=text]:focus {
    border-top-color: #4d2314;
    background: #4d2314;
    }
+   
+   
+.labels_field {
+	margin-top:5px;
+	border-style: solid;
+    border-width: 1px;
+	width:315px;
+	height:80px;
+	background-color:#FFFFFF;
+	display: inline-block;
+}
 
+
+.my_button {
+   display:inline;
+   border-top: 1px solid #885541;
+   background: #885541;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: white;
+   font-size: 22px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+   vertical-align: middle;
+    outline:none;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    margin-top:5px;
+   }
+
+.my_button:hover {
+   border-top-color: #45261b;
+   background: #45261b;
+   color: #ccc;
+   }
+.my_button:active {
+   border-top-color: #4d2314;
+   background: #4d2314;
+   }
 

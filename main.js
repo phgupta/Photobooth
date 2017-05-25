@@ -41,7 +41,6 @@ function uploadButtonPressed() {
 function show_favs_tags(){
 	var x = document.getElementsByClassName('show_favorites_tags');
 	
-	console.log(x[0]);
     if (x[0].style.display === 'block') {
         x[0].style.display = 'none';
     } else {
@@ -50,12 +49,35 @@ function show_favs_tags(){
 
 }
 
-
-function add_favs_tags() {
+function change_tags(image_id)
+{
+	var labels_field = document.getElementsByClassName('labels_field');
 	
-	var div_selec = document.getElementById('add_html');
-	var inner = "<div class=\"show_favorites_tags\">";
-	inner = inner + "<button class = \"change_tag\" onclick=\"change_tags('image_id')\">change tags</button>";
-	inner = inner + "<button class = \"add_to_favs\" onclick=\"add_to_favs('image_id')\">add to favorites</button>" + "</div>";
-	div_selec.innerHTML=inner;
+	console.log(labels_field[0]);
+	if(labels_field[0].style.backgroundColor=="rgb(194, 166, 156)"){
+		console.log("Hello World");
+		labels_field[0].style.backgroundColor="rgb(255, 255, 255)";
+		
+	}
+	else
+	{
+		labels_field[0].style.backgroundColor="rgb(194, 166, 156)";
+	}
+	
+	
+	var label_form = document.getElementsByClassName('label_input');
+	
+	if (label_form[0].style.display === 'block') {
+        label_form[0].style.display = 'none';
+    } else {
+        label_form[0].style.display = 'block';
+    }
+
+	
+	var add_button = document.getElementsByClassName('my_button');
+	if (add_button[0].style.display === 'block') {
+        add_button[0].style.display = 'none';
+    } else {
+        add_button[0].style.display = 'block';
+    }
 }
