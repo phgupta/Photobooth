@@ -383,6 +383,9 @@ button {
 	-webkit-flex-direction:row  !important;
 	flex-direction:row  !important;
 	-webkit-flex-flow:row wrap;
+	justify-content:space-between;
+	flex-wrap:wrap;
+	flex-direction:row;
 	margin-top:5px;
 	border-style: solid;
     border-width: 1px;
@@ -390,13 +393,13 @@ button {
 	height:70px;
 	font-size:14px;
 	color:black;
-	background-color:#C2A69C;
+	background-color:white;
 	display: inline-block;
 }
 
 
 .my_button {
-   display:inline;
+   display:none;
    border-top: 1px solid #885541;
    background: #885541;
    -webkit-border-radius: 0px;
@@ -466,3 +469,19 @@ button {
 	display: inline-block;
 	
  }
+
+
+.tag_item{
+	display:inline-block;
+	margin-top:0px;
+	margin-right:2px;
+	margin-left:2px;
+}
+
+.tag_image{
+	margin-top:4px;
+	width:20px;
+	height:20px;
+	display:in-line;
+
+}
