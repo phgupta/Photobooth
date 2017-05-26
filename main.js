@@ -137,7 +137,8 @@ function add_label(image_name) {
 	
 	var num_labels = dictionary[image_name]; 
 	var labels_field = document.getElementsByClassName('labels_field');
-	
+	// Query: op=add&img=[image filename]&label=[label to add]
+	var url_gen = "http://138.68.25.50:7821/query?op=add&img=";
 	if(num_labels < 10){
 		//<p class="a_label" id="label_ten" style="display: none"> <img src="Assets/removeTagButton.png" alt="x" class="x_image"/> </p>
 		var current_content = labels_field[image_index].innerHTML;
@@ -145,8 +146,17 @@ function add_label(image_name) {
 		labels_field[image_index].innerHTML = current_content + new_label;
 		dictionary[image_name]++;
 		
+		var url = url_gen + image_name + "&label=" + button_value;
+		console.log("url: ", url);
 		
-	}
+		var oReq = new XMLHttpRequest();
+		oReq.open("POST", url, true);  
+
+		oReq.onload = function() {
+			console.log(oReq.responseText);
+		}
+			oReq.send(formData);
+		}
 	else{
 		console.log(image_name + " has 10 labels already.");
 	}
