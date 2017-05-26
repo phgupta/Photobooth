@@ -3,6 +3,11 @@
 */
 
 /*
+ * Add label url:    http://138.68.25.50:7821/query?op=add&img=Hiking.jpg&label=hike
+ * Delete label url: http://138.68.25.50:7821/query?op=delete&img=skyscraper.jpg&label=sky
+*/
+
+/*
 // Move dump database function to '/main'
 db.all('SELECT * FROM PhotoLabels', function (err, tableData) {
     if (err) {
@@ -213,7 +218,7 @@ function removeLabel(currentLabel, deleteLabel) {
     // Removes deleteLabel from currentLabel
     if (index != -1) {
         var updatedLabel = currentLabel.slice(0, index);
-        updatedLabel += currentLabel.slice(index + deleteLabel.length + 1);
+        updatedLabel += currentLabel.slice(index + deleteLabel.length + 2);
     
         return updatedLabel;
     }
