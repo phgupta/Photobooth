@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to Photobooth</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+<link href="style2.css" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+<body onload="display_all()">
+<!--mian-content-->
+
+
+
+<div class="wrapper">
+  <header class="header">
+	 <img src="Assets/photoboothLogo.png" alt="Photoboth logo" style="width:300px;height:40px;"> 
+	</header>
+
+<hr/>
+
+  <div class="main">
+     <ul class="flex-container">
+		 <!--
+        <li class="flex-item" >
+        
+        	<img src="" alt="image" class="image" id="image_one" >	
+        </li>
+        <li class="flex-item" >
+        
+        	<img src="" alt="image" class="image" id="image_two" >	
+        </li>
+        <li class="flex-item" >
+        	<img src="" alt="image" class="image" id="image_three" >	
+        
+        </li>
+        <li class="flex-item" >
+        	<img src="" alt="image" class="image">	
+        </li>
+        <li class="flex-item"  >
+        	<img src="" alt="image" class="image">	
+        </li>
+        <li class="flex-item"  >
+        	<img src="" alt="image" class="image">	
+        
+        </li>
+        <li class="flex-item" >
+        	<img src="" alt="image" class="image">	
+        
+        </li>
+        <li class="flex-item"  >
+        	<img src="" alt="image" class="image">	
+        
+        </li>
+        <li class="flex-item"  >
+        	<img src="" alt="image" class="image">	
+        
+        </li>
+        <li class="flex-item" >
+        	<img src="" alt="image" class="image">	
+        
+        </li>
+        <li class="flex-item" >
+        	<img src="" alt="image" class="image">	
+        </li>
+        
+        </li>
+        <li class="flex-item"  >
+      	<img src="" alt="image" class="image">	
+        
+        </li>
+        <li class="flex-item" >
+        	<img src="" alt="image" class="image">	
+        
+        </li>
+        <li class="flex-item" >
+        	<img src="" alt="image" class="image">	
+        	
+        </li>
+        
+       </li>
+        <li class="flex-item" >
+        	<img src="" alt="image" class="image">	
+        </li>
+        
+               -->
+              
+    </ul>
+
+.
+  </div>
+ <!-- <aside class="aside aside-1">Aside 1</aside> -->
+  <aside class="aside aside-2">
+	<div class = "menu_items">
+	 <img class = "icons" src="Assets/uploadIcon-01.svg" alt="Upload Icon" onclick="show_hide('upload_show');" style="width:60px;height:50px;" /> 
+	<button class = "button" onclick="show_hide('upload_show')">Upload</button>
+ 	</div>
+	<div id = "upload_show">
+	<p class="back_up_upload">
+	<input id="fileSelector" class="uploadDetailButton" type="file">  </input>
+		<br>
+	<button class="uploadDetailButton" type="button" onclick="myuploadFile()"> upload</button>
+	
+	</p>
+        <script src="photo.js"> </script>
+
+	</div>
+
+
+	<div class="menu_items">
+	<p>
+	<img src="Assets/filterIcon-01.svg" alt="Upload Icon" onclick="show_hide('filter_show')" style="width:60px;height:50px;"/>
+	 <button class="button" id="my_filter_button" onclick="show_hide('filter_show')">filter</button>
+	<!-- <input type="text" id="top_filter" name="filter" placeholder="filter">	-->
+	 
+	 
+	 <span id="filter_string" > filter</span>
+	</p> 
+	</div>
+	<div id = "filter_show"> 
+		<input type="text" id = "bottom_filter" name="filter" placeholder="filter">	
+		<br>
+		<button class="enter_filter" onclick="dosomething()">enter</button>
+		<button class="clear_filter" onclick="do_something()">clear filter</button>
+		
+	</div>
+
+	<div class="menu_items">
+		<p>
+	<img src="Assets/favoritesIcon.svg" alt="Favorites Icon" onclick="show_hide('favorite_show')"style="width:50px;height:60px;">
+		<button class = "button" onclick="show_hide('favorite_show')">Favorites</button>
+		</p>
+	</div>
+	<div id = "favorite_show"> Favorites Section
+
+	<p>
+		<input type="file" id="fileSelector">
+		<button id="some_uploadButton" onclick="myuploadFile()">upload</button>
+	</p> 
+	
+	
+	 </div>
+
+</aside>
+
+
+</div>
+
+
+	<script  src="main.js"> </script>
+
+
+
+
+</body>
+</html>
