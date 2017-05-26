@@ -50,7 +50,7 @@ app.post('/main', function(req, res) {
 					console.log("Error(app.post('/main')): ", err);
 
 				else 
-					console.log("tableData: ", tableData, "\n");
+					console.log("tableData: ", tableData);
 			});
 		});
 	});

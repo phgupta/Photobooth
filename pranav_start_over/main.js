@@ -38,22 +38,22 @@ function uploadButtonPressed() {
 
 
 	// Displays image to webpage
-	var image = document.getElementById('theImage');
-	var hamburgerButton = document.getElementById('hamburgerButton');
-	var imageContainer = document.getElementById('image');
+	var image = document.getElementsByClassName('theImage');
+	var hamburgerButton = document.getElementsByClassName('hamburgerButton');
+	var imageContainer = document.getElementsByClassName('image');
 	var fr = new FileReader();
 
 	fr.onload = function () {
-		image.src = fr.result;
-		image.style.width = "100%";
-		image.style.height = "100%";
-		image.alt = selectedFile.name;
+		image[0].src = fr.result;
+		image[0].style.width = "100%";
+		image[0].style.height = "100%";
+		image[0].alt = selectedFile.name;
 
-		imageContainer.style.position = "relative";
-		hamburgerButton.style.display = "inline-block";
-		hamburgerButton.style.position = "absolute";
-		hamburgerButton.style.bottom = "0%";
-		hamburgerButton.style.right = "0%";
+		imageContainer[0].style.position = "relative";
+		hamburgerButton[0].style.display = "inline-block";
+		hamburgerButton[0].style.position = "absolute";
+		hamburgerButton[0].style.bottom = "0%";
+		hamburgerButton[0].style.right = "0%";
 	};
 	fr.readAsDataURL(selectedFile);
 
@@ -159,7 +159,7 @@ function add_label(image_name) {
     if(num_labels < 10)
     {	
         var current_content = labels_field[image_index].innerHTML;
-		var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\"/>" + button_value+ "</p>";
+		var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\" onclick=\"delete_label()\" />" + button_value + "</p>";
 		labels_field[image_index].innerHTML = current_content + new_label;
 		dictionary[image_name]++;
 	

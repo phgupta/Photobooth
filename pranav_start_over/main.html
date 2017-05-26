@@ -4,6 +4,7 @@
 3. Add "add filter" and "clear filter" buttons.
 4. Add progress bar.
 5. Fade the image.
+6. Add border on tags.
 -->
 
 <!DOCTYPE HTML>
@@ -29,19 +30,19 @@
         <div id="images">
 
             <!-- Make multiple of these div's -->
-            <div id="imageContainer">
+            <div class="imageContainer">
 
                 <!-- Image and options menu on top of it -->
-                <div id="image">
+                <div class="image">
                     <!-- Actual Image -->
-                    <img id="theImage"/>
+                    <img class="theImage"/>
 				
                     <!-- Option menu -->
                     <div class="show_favorites_tags" style="display: none"> 
 					    <button class="change_tag" onclick="change_tags()">change tags</button>
 					    <button class="add_to_favs">add to favorites</button>
 				    </div>
-				    <input id="hamburgerButton" type="image" onclick="show_favs_tags()" src="Assets/optionsTriangle.png" style="display: none"/>
+				    <input class="hamburgerButton" type="image" onclick="show_favs_tags()" src="Assets/optionsTriangle.png" style="display: none"/>
                 </div>
 
                 <!-- Labels textbox and form to add more labels -->
@@ -50,23 +51,23 @@
 			    <button class="my_button" onclick="add_label('label')">Add</button>
             </div>
 
-            <div id="imageContainer">
+            <div class="imageContainer">
                Hello
             </div>
 
-            <div id="imageContainer">
+            <div class="imageContainer">
                Hello
             </div>
 
-            <div id="imageContainer">
+            <div class="imageContainer">
                Hello
             </div>
 
-            <div id="imageContainer">
+            <div class="imageContainer">
                Hello
             </div>
 
-            <div id="imageContainer">
+            <div class="imageContainer">
                 Hello
             </div> 
 
