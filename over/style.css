@@ -24,7 +24,7 @@
     margin-top: 40px;
     font-family: sans-serif;
 }
-..main {
+.main {
 
   display: flex;
   padding-top: 20px;
@@ -64,6 +64,7 @@ body {
 }
 
 
+
 .flex-container {
   padding: 0;
   margin: 0;
@@ -76,22 +77,30 @@ body {
   display: flex;
   
   -webkit-flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-around; */
+  flex-wrap: wrap;
+
 }
+
+
 
 .flex-item {
   background: tomato;
-  padding: 5px;
-  width: 200px;
-  height: 150px;
-  margin-top: 10px;
-  
-  line-height: 150px;
+ /* padding: 5px; */
+ /*  margin: 2px; */
+ 
+  width: 360px;
+  height: 480px;
+  position:relative;
+  margin-top: 15px;
+  margin-right: 2px;
   color: white;
   font-weight: bold;
   font-size: 3em;
   text-align: center;
 }
+
+
 
 .header {
     color: #864F3B;
@@ -111,21 +120,6 @@ hr {
     padding: 0;
 }
 
-.flex-item {
-  background: tomato;
- /* padding: 5px; */
- /*  margin: 2px; */
- 
-  width: 330px;
-  height: 420px;
-  position:relative;
-  margin-top: 15px;
-  margin-right: 2px;
-  color: white;
-  font-weight: bold;
-  font-size: 3em;
-  text-align: center;
-}
 
 .icons{
 padding-top: 10px;
@@ -304,9 +298,171 @@ button {
 
 
 
+.body_image{
+	height:330px;
+	width:360px;	
+}
+
+.show_favorites_tags{
+    border-width: 1px;
+	width:155px;
+	height:140px;
+	background-color:#885541;
+	display: inline-block;
+    position: absolute;
+    bottom: 31.5%;
+    right: 0%;
+}
 
 
+.change_tag {
+   display:inline;
+   border-bottom: 1px solid #000000;
+   background: #885541;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: white;
+   font-size: 22px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+   vertical-align: middle;
+    outline:none;
+    cursor:pointer;
+    overflow: hidden;
+    background-color:#885541;
+    width:155px;
+	height:35px;
+	
+ }
+
+.change_tag:hover {
+   border-top-color: #45261b;
+   background: #45261b;
+   color: #ccc;
+   }
+.change_tag:active {
+   border-top-color: #4d2314;
+   background: #4d2314;
+   }
 
 
+.add_to_favs {
+   display:inline;
+   border-bottom: 1px solid #000000;
+   background: #885541;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: white;
+   font-size: 22px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+   vertical-align: middle;
+    outline:none;
+    cursor:pointer;
+    overflow: hidden;
+    background-color:#885541;
+    width:155px;
+	height:35px;
+	
+ }
+.add_to_favs:hover {
+   border-top-color: #45261b;
+   background: #45261b;
+   color: #ccc;
+   }
+.add_to_favs:active {
+   border-top-color: #4d2314;
+   background: #4d2314;
+   }
+   
+.labels_field {
+	display:flex !important;
+	display:-webkit-flex  !important;
+	-webkit-flex-direction:row  !important;
+	flex-direction:row  !important;
+	-webkit-flex-flow:row wrap;
+	margin-top:5px;
+	border-style: solid;
+    border-width: 1px;
+	width:360px;
+	height:70px;
+	font-size:14px;
+	color:black;
+	background-color:#C2A69C;
+	display: inline-block;
+}
 
 
+.my_button {
+   display:inline;
+   border-top: 1px solid #885541;
+   background: #885541;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: white;
+   font-size: 22px;
+   font-family: Georgia, serif;
+   text-decoration: none;
+   vertical-align: middle;
+    outline:none;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+ 
+	position: absolute;
+    bottom: 0%;
+    left: 0%;
+   }
+
+.my_button:hover {
+   border-top-color: #45261b;
+   background: #45261b;
+   color: #ccc;
+   }
+.my_button:active {
+   border-top-color: #4d2314;
+   background: #4d2314;
+   }
+   
+   
+.my_input {
+	
+    border-bottom: 1px solid #000000;
+	border-right: 1px solid #000000;
+	border-left: 1px solid #000000;
+	width: 319px;
+	height: 10px;
+    display: none;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	padding: 10px 20px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font: normal 22px/normal "Times New Roman", Times, serif;
+	color: rblack;
+	-o-text-overflow: clip;
+	text-overflow: clip;
+	background-color: white;
+	-webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+	-moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+	-o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+	transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+
+	position: absolute;
+    bottom: 6%;
+    left: 0%;
+
+}  
+ 
+ #hamburgerButton{
+ 
+ 	position: absolute;
+    bottom: 31.5%;
+    right: 0%;
+	display: inline-block;
+	
+ }

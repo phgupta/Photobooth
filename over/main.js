@@ -1,9 +1,60 @@
+
+
+
+function myuploadFile() {
+    var url = "http://138.68.25.50:6758";
+
+    var selectedFile = document.getElementById('fileSelector').files[0];
+    var image_name = selectedFile.name;
+    var reader = new FileReader();
+    
+    var formData = new FormData();
+    formData.append("userfile", selectedFile);
+    var oReq = new XMLHttpRequest();
+    oReq.open("POST", url, true);
+    oReq.onload = function() {
+        console.log(oReq.responseText);
+    }
+    oReq.send(formData);
+
+    var images = document.getElementsByClassName('body_image');
+    
+    reader.onload = function() {
+        var zero_image = images[0];
+        zero_image.src = reader.result;
+    }
+    reader.readAsDataURL(document.getElementById('fileSelector').files[0]);
+    console.log("Printing image tags.")
+    
+    var image_url = "http://138.68.25.50:6758/" + image_name; 
+    var is_true = true;
+    var iter = 0;
+    while(is_true) {
+		if(images[iter].src=="http://138.68.25.50:6758/photo/photo2.html") {
+				// images[iter].src = image_url;
+				is_true = false;
+				images[iter].src = URL.createObjectURL(selectedFile);
+		}
+			iter+=1;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
 var dictionary = {};
 
 var added_images = 0;
 
 
-function myuploadFile() {
+function hhmyuploadFile() {
     var url = "http://138.68.25.50:6758";
 
     var selectedFile = document.getElementById('fileSelector').files[0];
