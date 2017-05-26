@@ -2,6 +2,18 @@ var dictionary = {};
 
 var added_images = 0;
 
+function request_dump() {
+    var url = "http://138.68.25.50:7821/query?op=dump";
+    var oReq = new XMLHttpRequest();
+
+    oReq.addEventListener("load", function() {
+        var dataArray = JSON.parse(this.responseText);
+        console.log("dataArray: ", dataArray);
+    });
+
+    oReq.open("GET", url);
+    oReq.send();
+}
 
 function myuploadFile() {
     var url = "http://138.68.25.50:6758";
