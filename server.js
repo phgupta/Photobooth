@@ -1,3 +1,25 @@
+/*
+1. Change img src to server url
+*/
+
+/*
+// Move dump database function to '/main'
+db.all('SELECT * FROM PhotoLabels', function (err, tableData) {
+    if (err) {
+        console.log("error: ", err);
+    }
+
+    else {
+        console.log("got: ", tableData);
+        res.status(200);
+        // CHECK if below line works. 
+        res.send(tableData);
+    }
+});
+*/
+
+var firstLabel = true;
+
 // Include modules
 var express = require('express');
 var path = require('path');
@@ -5,41 +27,34 @@ var formidable = require('formidable');
 var querystring = require('querystring');
 var app = express();
 
+
 // Database initialization
 var sqlite3 = require("sqlite3").verbose();
 var dbFile = "photos.db";
 var db = new sqlite3.Database(dbFile);
 
+
 // Making public folder static
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Static Home page & dumps database
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/public/home.html');
-    
-    // Dump database
-    db.all('SELECT * FROM PhotoLabels', function (err, tableData) {
-        if (err) {
-            console.log("error: ", err);
-        }
-
-        else {
-            console.log("got: ", tableData);
-            res.status(200);
-            // CHECK if below line works. 
-            res.send(tableData);
-        }
-    });
 });
+
 
 // Static Main page
 app.get('/main', function (req, res) {
 	res.sendFile(__dirname + '/public/main.html');
 });
 
-// Dynamic Main Page
+
+// Dynamic Main Page - Uploads imageName to database
 app.post('/main', function (req, res) {
-	var form = new formidable.IncomingForm();
+	console.log("app.post('/main')...");
+    
+    var form = new formidable.IncomingForm();
 	form.parse(req);
 
 	form.on('fileBegin', function (name, file) {
@@ -56,7 +71,7 @@ app.post('/main', function (req, res) {
 				}
 
 				else {
-					console.log("got: ", tableData, "\n");
+					console.log("tableData: ", tableData, "\n");
 				}
 			});
 		});
@@ -69,14 +84,15 @@ app.post('/main', function (req, res) {
 	});
 });
 
+
 // Queries - Add label, Delete label
 app.get('/query', function (query, res) {
 
-	queryObj = querystring.parse(query);
+	queryObj = querystring.parse(query.url.split("?")[1]);
 
 	// Query: op=add&img=[image filename]&label=[label to add]
 	if (queryObj.op == "add") {
-		var imageName = queryObj.img;
+        var imageName = queryObj.img;
 		var newLabel = queryObj.label;
 
 		if (imageName && newLabel) {
@@ -88,19 +104,15 @@ app.get('/query', function (query, res) {
 				}
 
 				else {
-					db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [data.labels + ", " + newLabel, imageName], function (err) {
-						if (err) {
-							console.log("error: ", err);
-							res.status(400);
-							res.send("requested photo not found");
-						}
+                    if (firstLabel) {
+			            db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [newLabel, imageName], errorCallBack(err)); 
+                        firstLabel = false;
+                    }
 
-						else {
-							res.status(200);
-							res.send("added label " + newLabel + " to " + imageName);
-						}
-					}); 
-				}
+                    else {
+                        db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [data.labels + ", " + newLabel, imageName], errorCallBack(err)); 
+                    }
+                }
 			});
 		}
 	}
@@ -145,6 +157,8 @@ app.get('/query', function (query, res) {
         }
     }
 
+
+    /*
     // Query: op=filter&label=[label to delete]
     else if (queryObj.op == "filter") {
         var filterLabel = queryObj.label;
@@ -166,12 +180,30 @@ app.get('/query', function (query, res) {
             });
         }
     }
+    */
+
+    function errorCallBack(err) {
+     
+        if (err) {
+	        console.log("error: ", err);
+			res.status(400);
+		    res.send("requested photo not found");
+		}
+
+		else {
+		    res.status(200);
+			res.send("added label " + newLabel + " to " + imageName);
+		}
+    }
+
 });
+
 
 // Main
 app.listen(7821, function() {
   console.log("Listening on Port 7821...");
 });
+
 
 // My functions
 function removeLabel(currentLabel, deleteLabel) {

@@ -294,3 +294,37 @@ input[type=text] {
     height: 15px;
 
 }
+
+
+.seconds {
+  background-color: white;
+  border-style: solid;
+  height: 15px;
+  width: 300px;
+  margin: auto;
+  position: relative;
+  top: 100px;
+}
+
+.bar {
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#885541), color-stop(100%,#885541));
+  height: 15px;
+  width: 0%;
+}
+
+.animating {
+  -webkit-animation: progress 1s;
+}
+
+@-webkit-keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+
+
+

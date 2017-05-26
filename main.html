@@ -22,6 +22,12 @@
 		<div id="images"> 
 			<div id="imageContainer">
 				<img id="theImage"/>
+					<div id = "progressbar">
+						<div id="seconds" class="seconds" style = "display: none">
+						  	<div id="bar" class="bar animating"></div>
+						</div>	
+					</div>
+
 				<div class="show_favorites_tags" style="display: none"> 
 					
 					<button class = "change_tag" onclick="change_tags('image_id')">change tags</button>
@@ -38,6 +44,7 @@
 			
 			<form> <input type="text"  name="label" class="label_input" placeholder="label" style="display: none"> </form>
 			<button class = "my_button" onclick="add_label('label')">Add</button>
+
 		</div>
 
 		<!-- Added: Everything under div - encompass, menu_box-->
