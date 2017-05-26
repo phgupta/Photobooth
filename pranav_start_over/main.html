@@ -1,0 +1,107 @@
+<!-- 
+1. Set image src to server url.
+2. Filter query.
+3. Add "add filter" and "clear filter" buttons.
+4. Add progress bar.
+5. Fade the image.
+-->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Photobooth</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<meta name="viewport" content="width=device-width">
+</head>
+<body onload="request_dump()">
+	
+    <!-- Header -->
+    <div id="header">
+		<img alt="Photobooth." src="Assets/photoboothLogo.png"/>
+	</div>
+	<hr>
+
+    <!-- Main Body -->
+	<div id="mainContent">
+
+        <!--Images -->
+        <div id="images">
+
+            <!-- Make multiple of these div's -->
+            <div id="imageContainer">
+
+                <!-- Image and options menu on top of it -->
+                <div id="image">
+                    <!-- Actual Image -->
+                    <img id="theImage"/>
+				
+                    <!-- Option menu -->
+                    <div class="show_favorites_tags" style="display: none"> 
+					    <button class="change_tag" onclick="change_tags()">change tags</button>
+					    <button class="add_to_favs">add to favorites</button>
+				    </div>
+				    <input id="hamburgerButton" type="image" onclick="show_favs_tags()" src="Assets/optionsTriangle.png" style="display: none"/>
+                </div>
+
+                <!-- Labels textbox and form to add more labels -->
+                <div class="labels_field"> </div> 
+                <form> <input type="text" name="label" class="label_input" placeholder="label" style="display: none"> </form>
+			    <button class="my_button" onclick="add_label('label')">Add</button>
+            </div>
+
+            <div id="imageContainer">
+               Hello
+            </div>
+
+            <div id="imageContainer">
+               Hello
+            </div>
+
+            <div id="imageContainer">
+               Hello
+            </div>
+
+            <div id="imageContainer">
+               Hello
+            </div>
+
+            <div id="imageContainer">
+                Hello
+            </div> 
+
+        </div>
+
+		<!-- Sidebar (Lovepreet's code) -->
+		<div class = "encompass">	
+			<nav id="menu_box">
+				<ul class="menu">
+					<li> 
+						<a href="#"><img src="Assets/uploadIcon-01.png" alt="Logo">Upload</a>
+						<ul>
+							<li>
+								<a href="#">
+									<input id="fileSelector" class="uploadDetailButton" type="file">  </input>
+									<br>
+									<button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload</button>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li> 
+						<a href="#"><img src="Assets/filterIcon-01.png" alt="Logo">filter</a>
+						<ul>
+							<li>
+								<a href="#"><form> <input type="text" name="search" placeholder="Search.."> </form></a>
+							</li>    
+						</ul>
+					</li>
+					<li>  <a href="#"><img src="Assets/favoritesIcon.png" alt="Logo">favorites</a> </li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</body>
+</html>
+
+<script  src="main.js"> </script>
