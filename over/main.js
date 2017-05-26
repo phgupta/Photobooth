@@ -223,7 +223,7 @@ function change_tags(image_id)
 	}
 	
 	
-	var label_form = document.getElementsByClassName('label_input');
+	var label_form = document.getElementsByClassName('my_input');
 	
 	if (label_form[0].style.display === 'block') {
         label_form[0].style.display = 'none';
@@ -239,7 +239,7 @@ function change_tags(image_id)
         add_button[0].style.display = 'block';
     }
     
-    var x_image = document.getElementsByClassName('x_image');
+    var x_image = document.getElementsByClassName('tag_image');
    
    var num_xes = x_image.length;
    for(var iter = 0; iter<num_xes; iter++)
