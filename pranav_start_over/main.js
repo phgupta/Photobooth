@@ -58,28 +58,23 @@ function uploadButtonPressed() {
 	fr.readAsDataURL(selectedFile);
 
 
-    // Andro's code    
+    // Andro's code.
 	var labels_field = document.getElementsByClassName('labels_field');
-		if (labels_field[0].style.display === 'none') {
+	if (labels_field[0].style.display === 'none')
         labels_field[0].style.display = 'block';
-    } else {
-        labels_field[0].style.display = 'block';
-    }
-    
-    
-    	// add picture name to dictionary
+    else
+        labels_field[0].style.display = 'block'; // CHECK
+      
+    // Add picture name to dictionary
 	if(!(dictionary[selectedFile.name]))
-	{
 		dictionary[selectedFile.name] = 0;
-	}
 	
 	var add_num = Object.keys(dictionary).length;
 	var add_button = document.getElementsByClassName('my_button');
 	
 	add_button[add_num-1].onclick = function() {
-			add_label(selectedFile.name);}
-			
-	
+			add_label(selectedFile.name);
+    }
 }
 
 
