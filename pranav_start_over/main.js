@@ -2,6 +2,9 @@
 var dictionary = {};
 var label_count = 0;
 
+var num_images = 0;
+
+
 // Dumping function
 function request_dump() {
     
@@ -37,7 +40,29 @@ function uploadButtonPressed() {
 	oReq.send(formData);
 
 
-	// Displays image to webpage
+    // Add new imageContainer div
+    num_images++;
+    
+    var imageContainerDiv = document.createElement("div");
+    imageContainerDiv.setAttribute("class", "imageContainer");
+
+    imageContainerDiv.innerHTML = 
+    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags()"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags()" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_button" onclick="add_label("label")">Add</button> </div>'
+
+    var imagesDiv = document.getElementById("images");
+    imagesDiv.appendChild(imageContainerDiv);
+
+    
+    var imageContainerDiv = document.createElement("div");
+    imageContainerDiv.setAttribute("class", "imageContainer");
+    
+    var imageDiv = document.createElement("div");
+    imageDiv.setAttribute("class", "image");
+
+    imageContainerDiv.innerHTML = imageDiv;
+
+	
+    // Displays image to webpage
 	var image = document.getElementsByClassName('theImage');
 	var hamburgerButton = document.getElementsByClassName('hamburgerButton');
 	var imageContainer = document.getElementsByClassName('image');
@@ -57,7 +82,7 @@ function uploadButtonPressed() {
 	};
 	fr.readAsDataURL(selectedFile);
 
-
+    
     // Andro's code.
 	var labels_field = document.getElementsByClassName('labels_field');
 	if (labels_field[0].style.display === 'none')
