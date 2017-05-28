@@ -36,27 +36,54 @@
 		<div class = "encompass">	
 			<nav id="menu_box">
 				<ul class="menu">
-					<li> 
-						<a href="#"><img src="Assets/uploadIcon-01.png" alt="Logo">Upload</a>
-						<ul>
-							<li>
-								<a href="#">
-									<input id="fileSelector" class="uploadDetailButton" type="file">  </input>
-									<br>
-									<button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload</button>
-								</a>
-							</li>
-						</ul>
+					<li>  
+						<!-- Upload Part of the Menue --->
+						<div class = "menu_items">
+							<img class = "icons" src="Assets/uploadIcon-01.svg" alt="Upload Icon" onclick="show_hide('upload_show');" style="width:60px;height:50px;" /> 
+							<button class = "my_button" onclick="show_hide('upload_show')">Upload</button>
+						</div>
+						<div id = "upload_show">
+							<p class="back_up_upload">
+							<input id="fileSelector" class="uploadDetailButton" type="file">  </input>
+							<br>
+							<button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()"> upload</button>
+
+						</div>
 					</li>
+					
+					
+					
 					<li> 
-						<a href="#"><img src="Assets/filterIcon-01.png" alt="Logo">filter</a>
-						<ul>
-							<li>
-								<a href="#"><form> <input type="text" name="search" placeholder="Search.."> </form></a>
-							</li>    
-						</ul>
+						<!-- Filter Part of the Menu --->
+						<div class="menu_items">
+							<p>
+								<img src="Assets/filterIcon-01.svg" alt="Filter Icon" onclick="show_hide('filter_show')" style="width:60px;height:50px;"/>
+								<button class="my_button" id="my_filter_button" onclick="show_hide('filter_show')">filter</button>
+							</p> 
+					</div>
+					
+						<div id = "filter_show"> 
+							<input type="text" id = "bottom_filter" name="filter" placeholder="filter">	
+							<br>
+							<button class="enter_filter" onclick="dosomething()">enter</button>
+							<button class="clear_filter" onclick="do_something()">clear filter</button>
+		
+						</div>
 					</li>
-					<li>  <a href="#"><img src="Assets/favoritesIcon.png" alt="Logo">favorites</a> </li>
+					
+					
+					<li> 
+						<!-- Favorites Part of the Menu --->
+						<div class="menu_items">
+							<p>
+								<img src="Assets/favoritesIcon.svg" alt="Favorites Icon" onclick="show_hide('favorite_show')"style="width:50px;height:60px;">
+								<button class = "my_button" onclick="show_hide('favorite_show')">Favorites</button>
+							</p>
+						</div>
+						<div id = "favorite_show"> Favorites Section
+						</div>
+					</li>
+					
 				</ul>
 			</nav>
 		</div>
