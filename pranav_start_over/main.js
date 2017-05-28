@@ -1,11 +1,10 @@
 // Global variables
-var dictionary = {};
-var label_count = 0;
+var label_count = {}
+var image_names = {}
+var num_images = -1;
 
-var num_images = -1; // CHECK: Change later to 0 and below code accordingly if you have time.
 
-
-// Dumping function
+// Dumping function - Works
 function request_dump() {
     
     var url = "http://138.68.25.50:7821/query?op=dump";
@@ -21,7 +20,7 @@ function request_dump() {
 }
 
 
-// Uploads image
+// Uploads image - Works
 function uploadButtonPressed() {
 
     // XMLHttpRequest()
@@ -46,9 +45,13 @@ function uploadButtonPressed() {
     var imageContainerDiv = document.createElement("div");
     imageContainerDiv.setAttribute("class", "imageContainer");
     imageContainerDiv.setAttribute("id", num_images);
+    
+    // Keeping track of image name and number of labels with respect to each image's id
+    label_count[num_images] = 0;
+    image_names[num_images] = selectedFile.name
 
     imageContainerDiv.innerHTML = 
-    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags()"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_button" onclick="add_label("label")">Add</button> </div>'
+    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_button" onclick="add_label(this.parentElement.id)">Add</button>'
     
     var imagesDiv = document.getElementById("images");
     imagesDiv.appendChild(imageContainerDiv);
@@ -76,59 +79,55 @@ function uploadButtonPressed() {
 }
 
 
-// Shows the menu option
-function show_favs_tags(y) {
-
-    console.log("id: ", y);
+// Shows the menu option - Works
+function show_favs_tags(index) {
 
 	var x = document.getElementsByClassName('show_favorites_tags');
 
-    console.log("show_favs_tags() - num_images: ", num_images);
-
-    if (x[num_images].style.display === 'block')
-        x[num_images].style.display = 'none'; 
+    if (x[index].style.display == 'block')
+        x[index].style.display = 'none'; 
     
     else 
-        x[num_images].style.display = 'block';
+        x[index].style.display = 'block';
 }
 
 
 // Clicking "change tags" in menu option
-function change_tags() {
+function change_tags(index) {
 
     // Changes the background color of label box
 	var labels_field = document.getElementsByClassName('labels_field');
-	if(labels_field[num_images].style.backgroundColor=="rgb(194, 166, 156)")
-		labels_field[num_images].style.backgroundColor="rgb(255, 255, 255)";
+	if(labels_field[index].style.backgroundColor == "rgb(194, 166, 156)")
+		labels_field[index].style.backgroundColor = "rgb(255, 255, 255)";
 
 	else
-		labels_field[num_images].style.backgroundColor="rgb(194, 166, 156)";
+		labels_field[index].style.backgroundColor = "rgb(194, 166, 156)";
 
 	
     // Toggles the add label form
 	var label_form = document.getElementsByClassName('label_input');
-	if (label_form[num_images].style.display === 'block')
-        label_form[num_images].style.display = 'none';
+	if (label_form[index].style.display == 'block')
+        label_form[index].style.display = 'none';
 
     else
-        label_form[num_images].style.display = 'block';
+        label_form[index].style.display = 'block';
   
 
     // Toggles add button
 	var add_button = document.getElementsByClassName('my_button');
-	if (add_button[num_images].style.display === 'block')
-        add_button[num_images].style.display = 'none';
+	if (add_button[index].style.display == 'block')
+        add_button[index].style.display = 'none';
     
     else
-        add_button[num_images].style.display = 'block';
+        add_button[index].style.display = 'block';
    
     
-    // CHECK: Delete label button.
+    // CHECK: Toggles delete button
     var x_image = document.getElementsByClassName('x_image');
     var num_xes = x_image.length;
-    for(var iter = 0; iter<num_xes; iter++)
+    for(var iter = 0; iter < num_xes; iter++)
     {   
-		if (x_image[iter].style.display === 'none')
+		if (x_image[iter].style.display == 'none')
 			x_image[iter].style.display = 'inline';
 		
         else
@@ -138,38 +137,30 @@ function change_tags() {
 
 
 // Adds label on clicking the add button
-function add_label(image_name) {
+function add_label(index) {
 
 	var button = document.getElementsByClassName('label_input');
 	var button_value = button[num_images].value;
-	
-	// CHECK: image_index should probably be declared as global var
-	var image_index = -1;		// index of the calling image
-	for(var key in dictionary)
-	{
-		if(key == image_name) 
-        {
-	        image_index++;
-			break;   
-        }
-	}
-	
-	
-	var num_labels = dictionary[image_name]; 
-	var labels_field = document.getElementsByClassName('labels_field');
+	var num_labels = label_count[index]; 
+    var labels_field = document.getElementsByClassName('labels_field');
 	
     if(num_labels < 10)
-    {	
-        var current_content = labels_field[image_index].innerHTML;
+    {
+        // Adding the new label in the label textbox    
+        var current_content = labels_field[index].innerHTML;
 		var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\" onclick=\"delete_label()\" />" + button_value + "</p>";
-		labels_field[image_index].innerHTML = current_content + new_label;
-		dictionary[image_name]++;
-	
+		labels_field[index].innerHTML = current_content + new_label;
+		
+
+        // Incrementing number of labels of image
+        label_count[index]++;
+
+        var imgName = image_names[index];
 
         // XMLHTTPRequest()
         // Query: op=add&img=[image filename]&label=[label to add]
 	    var url_gen = "http://138.68.25.50:7821/query?op=add&img=";
-		var url = url_gen + image_name + "&label=" + button_value;
+		var url = url_gen + imgName + "&label=" + button_value;
 	    
 		var oReq = new XMLHttpRequest();
 		oReq.open("GET", url, true);  
@@ -181,5 +172,5 @@ function add_label(image_name) {
 	}
 	
     else 
-		console.log(image_name + " has 10 labels already.");
+		console.log("Error: Cannot exceed 10 labels.");
 }
