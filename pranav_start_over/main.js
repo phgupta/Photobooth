@@ -51,7 +51,7 @@ function uploadButtonPressed() {
     image_names[num_images] = selectedFile.name
 
     imageContainerDiv.innerHTML = 
-    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_button" onclick="add_label(this.parentElement.id)">Add</button>'
+    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button>'
     
     var imagesDiv = document.getElementById("images");
     imagesDiv.appendChild(imageContainerDiv);
@@ -114,7 +114,7 @@ function change_tags(index) {
   
 
     // Toggles add button
-	var add_button = document.getElementsByClassName('my_button');
+	var add_button = document.getElementsByClassName('my_add_button');
 	if (add_button[index].style.display == 'block')
         add_button[index].style.display = 'none';
     

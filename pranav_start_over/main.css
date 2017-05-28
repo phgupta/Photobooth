@@ -425,3 +425,27 @@ padding-left:5px;
   text-decoration: none;
 }
 
+
+.my_add_button {
+    display:none;
+    border-top: 1px solid #885541;
+    background: #885541;
+    color: white;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    vertical-align: middle;
+    outline:none;
+    cursor:pointer;
+    overflow: hidden;
+}
+
+.my_add_button:hover {
+    border-top-color: #45261b;
+    background: #45261b;
+    color: #ccc;
+}
+
+.my_add_button:active {
+    border-top-color: #4d2314;
+    background: #4d2314;
+}
