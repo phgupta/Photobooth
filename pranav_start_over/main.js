@@ -2,7 +2,7 @@
 var dictionary = {};
 var label_count = 0;
 
-var num_images = 0;
+var num_images = -1; // CHECK: Change later to 0 and below code accordingly if you have time.
 
 
 // Dumping function
@@ -41,27 +41,19 @@ function uploadButtonPressed() {
 
 
     // Add new imageContainer div
-    num_images++;
+    num_images += 1;
     
     var imageContainerDiv = document.createElement("div");
     imageContainerDiv.setAttribute("class", "imageContainer");
+    imageContainerDiv.setAttribute("id", num_images);
 
     imageContainerDiv.innerHTML = 
     '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags()"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags()" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_button" onclick="add_label("label")">Add</button> </div>'
-
+    
     var imagesDiv = document.getElementById("images");
     imagesDiv.appendChild(imageContainerDiv);
 
-    
-    var imageContainerDiv = document.createElement("div");
-    imageContainerDiv.setAttribute("class", "imageContainer");
-    
-    var imageDiv = document.createElement("div");
-    imageDiv.setAttribute("class", "image");
 
-    imageContainerDiv.innerHTML = imageDiv;
-
-	
     // Displays image to webpage
 	var image = document.getElementsByClassName('theImage');
 	var hamburgerButton = document.getElementsByClassName('hamburgerButton');
@@ -69,37 +61,18 @@ function uploadButtonPressed() {
 	var fr = new FileReader();
 
 	fr.onload = function () {
-		image[0].src = fr.result;
-		image[0].style.width = "100%";
-		image[0].style.height = "100%";
-		image[0].alt = selectedFile.name;
+		image[num_images].src = fr.result;
+		image[num_images].style.width = "100%";
+		image[num_images].style.height = "100%";
+		image[num_images].alt = selectedFile.name;
 
-		imageContainer[0].style.position = "relative";
-		hamburgerButton[0].style.display = "inline-block";
-		hamburgerButton[0].style.position = "absolute";
-		hamburgerButton[0].style.bottom = "0%";
-		hamburgerButton[0].style.right = "0%";
-	};
+		imageContainer[num_images].style.position = "relative";
+		hamburgerButton[num_images].style.display = "inline-block";
+		hamburgerButton[num_images].style.position = "absolute";
+		hamburgerButton[num_images].style.bottom = "0%";
+		hamburgerButton[num_images].style.right = "0%";
+    };
 	fr.readAsDataURL(selectedFile);
-
-    
-    // Andro's code.
-	var labels_field = document.getElementsByClassName('labels_field');
-	if (labels_field[0].style.display === 'none')
-        labels_field[0].style.display = 'block';
-    else
-        labels_field[0].style.display = 'block'; // CHECK
-      
-    // Add picture name to dictionary
-	if(!(dictionary[selectedFile.name]))
-		dictionary[selectedFile.name] = 0;
-	
-	var add_num = Object.keys(dictionary).length;
-	var add_button = document.getElementsByClassName('my_button');
-	
-	add_button[add_num-1].onclick = function() {
-			add_label(selectedFile.name);
-    }
 }
 
 
@@ -107,12 +80,14 @@ function uploadButtonPressed() {
 function show_favs_tags() {
 
 	var x = document.getElementsByClassName('show_favorites_tags');
-	
-    if (x[0].style.display === 'block')
-        x[0].style.display = 'none'; 
+
+    console.log("show_favs_tags() - num_images: ", num_images);
+
+    if (x[num_images].style.display === 'block')
+        x[num_images].style.display = 'none'; 
     
     else 
-        x[0].style.display = 'block';
+        x[num_images].style.display = 'block';
 }
 
 
@@ -121,29 +96,29 @@ function change_tags() {
 
     // Changes the background color of label box
 	var labels_field = document.getElementsByClassName('labels_field');
-	if(labels_field[0].style.backgroundColor=="rgb(194, 166, 156)")
-		labels_field[0].style.backgroundColor="rgb(255, 255, 255)";
+	if(labels_field[num_images].style.backgroundColor=="rgb(194, 166, 156)")
+		labels_field[num_images].style.backgroundColor="rgb(255, 255, 255)";
 
 	else
-		labels_field[0].style.backgroundColor="rgb(194, 166, 156)";
+		labels_field[num_images].style.backgroundColor="rgb(194, 166, 156)";
 
 	
     // Toggles the add label form
 	var label_form = document.getElementsByClassName('label_input');
-	if (label_form[0].style.display === 'block')
-        label_form[0].style.display = 'none';
+	if (label_form[num_images].style.display === 'block')
+        label_form[num_images].style.display = 'none';
 
     else
-        label_form[0].style.display = 'block';
+        label_form[num_images].style.display = 'block';
   
 
     // Toggles add button
 	var add_button = document.getElementsByClassName('my_button');
-	if (add_button[0].style.display === 'block')
-        add_button[0].style.display = 'none';
+	if (add_button[num_images].style.display === 'block')
+        add_button[num_images].style.display = 'none';
     
     else
-        add_button[0].style.display = 'block';
+        add_button[num_images].style.display = 'block';
    
     
     // CHECK: Delete label button.
@@ -164,7 +139,7 @@ function change_tags() {
 function add_label(image_name) {
 
 	var button = document.getElementsByClassName('label_input');
-	var button_value = button[0].value;
+	var button_value = button[num_images].value;
 	
 	// CHECK: image_index should probably be declared as global var
 	var image_index = -1;		// index of the calling image
