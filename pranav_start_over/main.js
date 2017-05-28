@@ -123,7 +123,9 @@ function change_tags(index) {
    
     
     // CHECK: Toggles delete button
-    var x_image = document.getElementsByClassName('x_image');
+    var x_image_name = "x_image" + String(index);
+    var x_image = document.getElementsByClassName(x_image_name);
+    
     var num_xes = x_image.length;
     for(var iter = 0; iter < num_xes; iter++)
     {   
@@ -140,7 +142,7 @@ function change_tags(index) {
 function add_label(index) {
 
 	var button = document.getElementsByClassName('label_input');
-	var button_value = button[num_images].value;
+	var button_value = button[index].value;
 	var num_labels = label_count[index]; 
     var labels_field = document.getElementsByClassName('labels_field');
 	
@@ -148,13 +150,14 @@ function add_label(index) {
     {
         // Adding the new label in the label textbox    
         var current_content = labels_field[index].innerHTML;
-		var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\" onclick=\"delete_label()\" />" + button_value + "</p>";
+
+        var x_image_name = "x_image" + String(index);
+		var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\" class=\"" + x_image_name + "\" onclick=\"delete_label()\" />" + button_value + "</p>";
 		labels_field[index].innerHTML = current_content + new_label;
 		
 
-        // Incrementing number of labels of image
+        // Incrementing number of labels of image and getting image name
         label_count[index]++;
-
         var imgName = image_names[index];
 
         // XMLHTTPRequest()
@@ -173,14 +176,4 @@ function add_label(index) {
 	
     else 
 		console.log("Error: Cannot exceed 10 labels.");
-}
-
-function show_hide(div_id) {
-    var x = document.getElementById(div_id);
-    if (x.style.display === 'block') {
-        x.style.display = 'none';
-    } else {
-        x.style.display = 'block';
-    }
-
 }
