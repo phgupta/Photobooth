@@ -28,7 +28,7 @@ hr {
 }
 
 .imageContainer {
-	/* height:300px; */         /* CHECK */
+	/* height:300px; /* CHECK */
 	width:300px;
 }
 
@@ -36,6 +36,7 @@ hr {
     width: 300px;
     height: 200px;
 }
+
 
 /* Images (Andro's code) */
 .show_favorites_tags{
@@ -64,7 +65,7 @@ hr {
     background-color:#885541;
     width:155px;
 	height:35px;
- }
+}
 
 .change_tag:hover {
    border-top-color: #45261b;
@@ -304,39 +305,36 @@ padding-left:5px;
     border: none;
     cursor:pointer;
     overflow: hidden;
-   }
+}
 
 .my_button:hover {
    border-top-color: #45261b;
    background: #45261b;
    color: #ccc;
-   }
+}
+
 .my_button:active {
    border-top-color: #4d2314;
    background: #4d2314;
-   }
-
-
+}
 
 #upload_show {
 	display:none;
-	background-color:#CEB8B0;
-	
+	background-color:#CEB8B0;	
 }
 
-#myuploadButton{
+#myuploadButton {
 	padding:50px;
 	padding-top:20px;
 	padding-left:20px;
 }
 
-#filter_show{
+#filter_show {
 	display:none;
 	background-color:#CEB8B0;
 }
 
-
-#bottom_filter{
+#bottom_filter {
 	margin-top:15px;
 	margin-left:25px;
 	margin-bottom:5px;
@@ -359,8 +357,6 @@ padding-left:5px;
 	background-color:#CEB8B0;
 }
 
-
-
 .enter_filter{
 	width:60px;
 	height:30px;
@@ -379,12 +375,9 @@ padding-left:5px;
 	font-size:12px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #b23e35;
-
-
-
 }
 
-.clear_filter{
+.clear_filter {
 	
 	width:130px;
 	height:30px;
@@ -414,6 +407,7 @@ padding-left:5px;
   background-image: linear-gradient(to bottom, #af6c54, #ea9475);
   text-decoration: none;
 }
+
 .enter_filter:hover {
   background: #af6c54;
   background-image: -webkit-linear-gradient(top, #af6c54, #ea9475);
@@ -423,7 +417,6 @@ padding-left:5px;
   background-image: linear-gradient(to bottom, #af6c54, #ea9475);
   text-decoration: none;
 }
-
 
 .my_add_button {
     display:none;
