@@ -183,3 +183,13 @@ function add_label(image_name) {
     else 
 		console.log(image_name + " has 10 labels already.");
 }
+
+function show_hide(div_id) {
+    var x = document.getElementById(div_id);
+    if (x.style.display === 'block') {
+        x.style.display = 'none';
+    } else {
+        x.style.display = 'block';
+    }
+
+}
