@@ -48,7 +48,7 @@ function uploadButtonPressed() {
     imageContainerDiv.setAttribute("id", num_images);
 
     imageContainerDiv.innerHTML = 
-    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags()"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags()" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_button" onclick="add_label("label")">Add</button> </div>'
+    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags()"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_button" onclick="add_label("label")">Add</button> </div>'
     
     var imagesDiv = document.getElementById("images");
     imagesDiv.appendChild(imageContainerDiv);
@@ -77,7 +77,9 @@ function uploadButtonPressed() {
 
 
 // Shows the menu option
-function show_favs_tags() {
+function show_favs_tags(y) {
+
+    console.log("id: ", y);
 
 	var x = document.getElementsByClassName('show_favorites_tags');
 
