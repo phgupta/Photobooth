@@ -177,3 +177,15 @@ function add_label(index) {
     else 
 		console.log("Error: Cannot exceed 10 labels.");
 }
+
+
+function show_hide(div_id) {
+    var x = document.getElementById(div_id);
+    if (x.style.display === 'block') {
+        x.style.display = 'none';
+    } else {
+        x.style.display = 'block';
+    }
+
+}
+
