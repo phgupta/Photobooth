@@ -13,6 +13,65 @@ function request_dump() {
     oReq.addEventListener("load", function() {
         var dataArray = JSON.parse(this.responseText);
         console.log("dataArray: ", dataArray);
+        
+        for (var i = 0; i < dataArray.length; i++)
+        {
+            // Add new imageContainer div
+            num_images += 1;
+    
+            var imageContainerDiv = document.createElement("div");
+            imageContainerDiv.setAttribute("class", "imageContainer");
+            imageContainerDiv.setAttribute("id", num_images);
+    
+            // Keeping track of image name and number of labels with respect to each image's id
+            label_count[num_images] = 0;
+            image_names[num_images] = dataArray[i].fileName;
+
+            imageContainerDiv.innerHTML = 
+            '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button>'
+    
+            var imagesDiv = document.getElementById("images");
+            imagesDiv.appendChild(imageContainerDiv);
+
+
+            // Displays image to webpage
+	        var image = document.getElementsByClassName('theImage');
+	        var hamburgerButton = document.getElementsByClassName('hamburgerButton');
+	        var imageContainer = document.getElementsByClassName('image');
+        
+		    image[num_images].src = "http://138.68.25.50:7821/Uploads/" + dataArray[i].fileName;
+		    image[num_images].style.width = "100%";
+		    image[num_images].style.height = "100%";
+		    image[num_images].alt = dataArray[i].fileName;
+
+		    imageContainer[num_images].style.position = "relative";
+		    hamburgerButton[num_images].style.display = "inline-block";
+		    hamburgerButton[num_images].style.position = "absolute";
+		    hamburgerButton[num_images].style.bottom = "0%";
+		    hamburgerButton[num_images].style.right = "0%";
+        
+            // Parsing the labels
+            var labels = dataArray[i].labels.split(",");
+
+
+            // Showing labels of each image        
+            var labels_field = document.getElementsByClassName('labels_field');
+            for (var j = 0; j < labels.length; j++) 
+            {
+                if (labels[j] != "")
+                {
+                    // Adding the new label in the label textbox    
+                    var current_content = labels_field[num_images].innerHTML;
+                    var x_image_name = "x_image" + String(num_images);
+
+		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label()\" />" + labels[j] + "</p>";
+		            labels_field[num_images].innerHTML = current_content + new_label;
+		
+                    // Incrementing number of labels of image and getting image name
+                    label_count[num_images]++;
+                }
+            }
+        }
     });
 
     oReq.open("GET", url);
@@ -134,25 +193,6 @@ function change_tags(index) {
         else
             x_image[i].style.display = 'none';
     }
-
-    /*
-    var num_xes = label_count[index];
-    var prev_labels = 0;
-
-    for(var i = 0; i < index; i++) 
-        prev_labels += label_count[i];
-
-    console.log("x_image: ", x_image);
-
-    for (var j = prev_labels; j < label_count[index] + prev_labels; j++)
-    {
-		if (x_image[j].style.display == 'none')
-			x_image[j].style.display = 'inline';
-		
-        else
-			x_image[j].style.display = 'none';
-    }
-    */
 }
 
 

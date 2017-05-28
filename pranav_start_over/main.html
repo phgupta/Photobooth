@@ -1,11 +1,11 @@
 <!-- 
-1. Set image src to server url.
-2. Filter query.
-3. Add "add filter" and "clear filter" buttons.
-4. Add progress bar.
-5. Fade the image.
-6. Add border on tags.
-7. Handle case when Upload button is pressed without uploading image.
+1. Filter query.
+2. Add progress bar.
+3. Fade the image.
+4. Handle case when Upload button is pressed without uploading image.
+5. Handle case when user presses enter in label form.
+6. Implement delete label function.
+7. In home page remove x_image
 -->
 
 <!DOCTYPE HTML>
@@ -37,7 +37,7 @@
 			<nav id="menu_box">
 				<ul class="menu">
 					<li>  
-						<!-- Upload Part of the Menue --->
+						<!-- Upload Part of the Menue -->
 						<div class = "menu_items">
 							<img class = "icons" src="Assets/uploadIcon-01.svg" alt="Upload Icon" onclick="show_hide('upload_show');" style="width:60px;height:50px;" /> 
 							<button class = "my_button" onclick="show_hide('upload_show')">Upload</button>
