@@ -92,7 +92,7 @@ function show_favs_tags(index) {
 }
 
 
-// Clicking "change tags" in menu option
+// Clicking "change tags" in menu option - Works
 function change_tags(index) {
 
     // Changes the background color of label box
@@ -122,19 +122,37 @@ function change_tags(index) {
         add_button[index].style.display = 'block';
    
     
-    // CHECK: Toggles delete button
+    // Toggles delete button
     var x_image_name = "x_image" + String(index);
     var x_image = document.getElementsByClassName(x_image_name);
-    
-    var num_xes = x_image.length;
-    for(var iter = 0; iter < num_xes; iter++)
-    {   
-		if (x_image[iter].style.display == 'none')
-			x_image[iter].style.display = 'inline';
+   
+    for (var i = 0; i < label_count[index]; i++)
+    {
+        if (x_image[i].style.display == 'none')
+            x_image[i].style.display = 'inline';
+
+        else
+            x_image[i].style.display = 'none';
+    }
+
+    /*
+    var num_xes = label_count[index];
+    var prev_labels = 0;
+
+    for(var i = 0; i < index; i++) 
+        prev_labels += label_count[i];
+
+    console.log("x_image: ", x_image);
+
+    for (var j = prev_labels; j < label_count[index] + prev_labels; j++)
+    {
+		if (x_image[j].style.display == 'none')
+			x_image[j].style.display = 'inline';
 		
         else
-			x_image[iter].style.display = 'none';
-   }
+			x_image[j].style.display = 'none';
+    }
+    */
 }
 
 
@@ -150,9 +168,9 @@ function add_label(index) {
     {
         // Adding the new label in the label textbox    
         var current_content = labels_field[index].innerHTML;
-
         var x_image_name = "x_image" + String(index);
-		var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image\" class=\"" + x_image_name + "\" onclick=\"delete_label()\" />" + button_value + "</p>";
+
+		var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label()\" />" + button_value + "</p>";
 		labels_field[index].innerHTML = current_content + new_label;
 		
 
@@ -186,6 +204,4 @@ function show_hide(div_id) {
     } else {
         x.style.display = 'block';
     }
-
 }
-

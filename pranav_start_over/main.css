@@ -30,7 +30,6 @@ hr {
 .imageContainer {
 	/* height:300px; */         /* CHECK */
 	width:300px;
-    background-color: #888888;  /* Delete later */
 }
 
 .image {
@@ -114,7 +113,7 @@ hr {
     border-width: 1px;
     width: 300px;
     background-color: #ffffff;
-    /* border-style: solid; */          /* CHANGE IN JAVASCRIPT? */
+    border-style: solid;
 }
 
 .my_button {
