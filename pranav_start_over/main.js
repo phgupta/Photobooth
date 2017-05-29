@@ -129,14 +129,17 @@ function uploadButtonPressed() {
 		image[num_images].style.height = "100%";
 		image[num_images].alt = selectedFile.name;
 
+        
+        progressBar[num_images].style.display = "inline-block";        
+
 		imageContainer[num_images].style.position = "relative";
 		hamburgerButton[num_images].style.display = "inline-block";
 		hamburgerButton[num_images].style.position = "absolute";
 		hamburgerButton[num_images].style.bottom = "0%";
 		hamburgerButton[num_images].style.right = "0%";
 
-        progressBar[num_images].style.display = "inline-block";
-        fadeIn(document.getElementById('image'), 1000);
+       
+        
     };
 	fr.readAsDataURL(selectedFile);
 }
