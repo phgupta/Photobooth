@@ -441,3 +441,35 @@ padding-left:5px;
     border-top-color: #4d2314;
     background: #4d2314;
 }
+
+
+
+.seconds {
+  background-color: white;
+  height: 2px;
+  width: 300px;
+  margin: auto;
+  position: relative;
+  top: 100px;
+}
+
+.bar {
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#864f3b), color-stop(100%,#864f3b));
+  height: 15px;
+  width: 0%;
+}
+
+.animating {
+  -webkit-animation: progress 2s;
+}
+
+@-webkit-keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+

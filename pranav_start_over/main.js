@@ -28,8 +28,7 @@ function request_dump() {
             image_names[num_images] = dataArray[i].fileName;
 
             imageContainerDiv.innerHTML = 
-            '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button>'
-    
+            '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> '
             var imagesDiv = document.getElementById("images");
             imagesDiv.appendChild(imageContainerDiv);
 
@@ -38,6 +37,7 @@ function request_dump() {
 	        var image = document.getElementsByClassName('theImage');
 	        var hamburgerButton = document.getElementsByClassName('hamburgerButton');
 	        var imageContainer = document.getElementsByClassName('image');
+            var progressBar = document.getElementsByClassName('seconds');
         
 		    image[num_images].src = "http://138.68.25.50:7821/Uploads/" + dataArray[i].fileName;
 		    image[num_images].style.width = "100%";
@@ -50,6 +50,7 @@ function request_dump() {
 		    hamburgerButton[num_images].style.bottom = "0%";
 		    hamburgerButton[num_images].style.right = "0%";
         
+            fadeIn(document.getElementById('image'), 1000);
             // Parsing the labels
             var labels = dataArray[i].labels.split(",");
 
@@ -110,8 +111,7 @@ function uploadButtonPressed() {
     image_names[num_images] = selectedFile.name
 
     imageContainerDiv.innerHTML = 
-    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button>'
-    
+    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div>  <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div>  <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> <div id="image">'
     var imagesDiv = document.getElementById("images");
     imagesDiv.appendChild(imageContainerDiv);
 
@@ -120,6 +120,7 @@ function uploadButtonPressed() {
 	var image = document.getElementsByClassName('theImage');
 	var hamburgerButton = document.getElementsByClassName('hamburgerButton');
 	var imageContainer = document.getElementsByClassName('image');
+    var progressBar = document.getElementsByClassName('seconds');
 	var fr = new FileReader();
 
 	fr.onload = function () {
@@ -133,6 +134,9 @@ function uploadButtonPressed() {
 		hamburgerButton[num_images].style.position = "absolute";
 		hamburgerButton[num_images].style.bottom = "0%";
 		hamburgerButton[num_images].style.right = "0%";
+
+        progressBar[num_images].style.display = "inline-block";
+        fadeIn(document.getElementById('image'), 1000);
     };
 	fr.readAsDataURL(selectedFile);
 }
@@ -245,3 +249,7 @@ function show_hide(div_id) {
         x.style.display = 'block';
     }
 }
+
+
+
+
