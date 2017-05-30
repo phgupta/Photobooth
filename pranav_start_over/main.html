@@ -1,11 +1,10 @@
 <!-- 
 1. Filter query.
-2. Add progress bar.
-3. Fade the image.
-4. Handle case when Upload button is pressed without uploading image.
-5. Handle case when user presses enter in label form.
-6. Implement delete label function.
-7. In home page remove x_image
+2. Implement delete label function.
+3. In home page remove x_image
+4. Dumping function dumps only first image in database.
+5. Handle case when Upload button is pressed without uploading image.
+6. Handle case when user presses enter in label form.
 -->
 
 <!DOCTYPE HTML>
@@ -58,7 +57,7 @@
 								<img src="Assets/filterIcon-01.svg" alt="Filter Icon" onclick="show_hide('filter_show')" style="width:60px;height:50px;"/>
 								<button class="my_button" id="my_filter_button" onclick="show_hide('filter_show')">filter</button>
 							</p> 
-					</div>
+					    </div>
 					
 						<div id = "filter_show"> 
 							<input type="text" id = "bottom_filter" name="filter" placeholder="filter">	

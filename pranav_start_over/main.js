@@ -1,13 +1,15 @@
 // Global variables
+var port = 7821;
 var label_count = {}
 var image_names = {}
 var num_images = -1;
 
+var num_labels_in_each_image = -1;
 
 // Dumping function - Works
 function request_dump() {
     
-    var url = "http://138.68.25.50:7821/query?op=dump";
+    var url = "http://138.68.25.50:" + port + "/query?op=dump";
     var oReq = new XMLHttpRequest();
 
     oReq.addEventListener("load", function() {
@@ -16,9 +18,9 @@ function request_dump() {
         
         for (var i = 0; i < dataArray.length; i++)
         {
-            // Add new imageContainer div
             num_images += 1;
-    
+   
+            // Add new imageContainer div 
             var imageContainerDiv = document.createElement("div");
             imageContainerDiv.setAttribute("class", "imageContainer");
             imageContainerDiv.setAttribute("id", num_images);
@@ -39,7 +41,7 @@ function request_dump() {
 	        var imageContainer = document.getElementsByClassName('image');
             var progressBar = document.getElementsByClassName('seconds');
         
-		    image[num_images].src = "http://138.68.25.50:7821/Uploads/" + dataArray[i].fileName;
+		    image[num_images].src = "http://138.68.25.50:" + port + "/Uploads/" + dataArray[i].fileName;
 		    image[num_images].style.width = "100%";
 		    image[num_images].style.height = "100%";
 		    image[num_images].alt = dataArray[i].fileName;
@@ -50,7 +52,7 @@ function request_dump() {
 		    hamburgerButton[num_images].style.bottom = "0%";
 		    hamburgerButton[num_images].style.right = "0%";
         
-            fadeIn(document.getElementById('image'), 1000);
+            
             // Parsing the labels
             var labels = dataArray[i].labels.split(",");
 
@@ -65,7 +67,11 @@ function request_dump() {
                     var current_content = labels_field[num_images].innerHTML;
                     var x_image_name = "x_image" + String(num_images);
 
-		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label()\" />" + labels[j] + "</p>";
+
+		            var new_label = "<p class=\"a_label\">" + labels[j] + " </p>";
+ 		            //var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label()\" />" + labels[j] + "</p>";
+
+
 		            labels_field[num_images].innerHTML = current_content + new_label;
 		
                     // Incrementing number of labels of image and getting image name
@@ -84,7 +90,7 @@ function request_dump() {
 function uploadButtonPressed() {
 
     // XMLHttpRequest()
-	var url = "http://138.68.25.50:7821/main";
+	var url = "http://138.68.25.50:" + port + "/main";
 	var selectedFile = document.getElementById('fileSelector').files[0];
 	
 	var formData = new FormData(); 
@@ -217,8 +223,12 @@ function add_label(index) {
         var current_content = labels_field[index].innerHTML;
         var x_image_name = "x_image" + String(index);
 
-		var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label()\" />" + button_value + "</p>";
-		labels_field[index].innerHTML = current_content + new_label;
+
+        num_labels_in_each_image += 1;
+		var new_label = "<p class=\"a_label\"" + "id=" + num_labels_in_each_image + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + index + "," + num_labels_in_each_image + ")\" />" + button_value + "</p>";
+		//var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + index + ")\" />" + button_value + "</p>";
+        
+        labels_field[index].innerHTML = current_content + new_label;
 		
 
         // Incrementing number of labels of image and getting image name
@@ -227,7 +237,7 @@ function add_label(index) {
 
         // XMLHTTPRequest()
         // Query: op=add&img=[image filename]&label=[label to add]
-	    var url_gen = "http://138.68.25.50:7821/query?op=add&img=";
+	    var url_gen = "http://138.68.25.50:" + port + "/query?op=add&img=";
 		var url = url_gen + imgName + "&label=" + button_value;
 	    
 		var oReq = new XMLHttpRequest();
@@ -244,6 +254,36 @@ function add_label(index) {
 }
 
 
+// Delets label
+function delete_label(text, index, label_index) {
+    console.log("text: ", text);
+    console.log("index: ", index);
+    console.log("label index: ", label_index);
+
+    // Delets label from database 
+    // XMLHTTPRequest()
+    // Query: op=delete&img=[image filename]&label=[label to delete]
+    var url_gen = "http://138.68.25.50:" + port + "/query?op=delete&img=";
+    var url = url_gen + image_names[index] + "&label=" + text;
+
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", url, true);
+
+    oReq.onload = function() {
+        console.log(oReq.responseText);
+    }
+    oReq.send();
+
+    /*
+    // Deletes label from screen
+    var labels_field = document.getElementsByClassName('labels_field');
+    var a_label = document.getElementsByClassName('a_label');
+    console.log("labels_field: ", labels_field);
+    //labels_field[index].removeChild(a_label[label_index]);
+    */
+}
+
+
 function show_hide(div_id) {
     var x = document.getElementById(div_id);
     if (x.style.display === 'block') {
@@ -252,7 +292,3 @@ function show_hide(div_id) {
         x.style.display = 'block';
     }
 }
-
-
-
-
