@@ -1,5 +1,5 @@
 // Global variables
-var port = 7821;
+var port = 6758;
 var label_count = {}
 var image_names = {}
 var num_images = -1;
@@ -68,8 +68,8 @@ function request_dump() {
                     var x_image_name = "x_image" + String(num_images);
 
 
-		            var new_label = "<p class=\"a_label\">" + labels[j] + " </p>";
- 		            //var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label()\" />" + labels[j] + "</p>";
+		           // var new_label = "<p class=\"a_label\">" + labels[j] + " </p>";
+ 		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image  "  + x_image_name + "\" onclick=\"delete_label()\" />" + labels[j] + "</p>";
 
 
 		            labels_field[num_images].innerHTML = current_content + new_label;
@@ -200,11 +200,11 @@ function change_tags(index) {
    
     for (var i = 0; i < label_count[index]; i++)
     {
-        if (x_image[i].style.display == 'none')
-            x_image[i].style.display = 'inline';
+        if (x_image[i].style.display == 'inline')
+            x_image[i].style.display = 'none';
 
         else
-            x_image[i].style.display = 'none';
+            x_image[i].style.display = 'inline';
     }
 }
 
