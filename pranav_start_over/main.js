@@ -36,7 +36,6 @@ function request_dump() {
             imagesDiv.appendChild(imageContainerDiv);
 
             // Checks if image is favorited or not
-            console.log("favorite: ", dataArray[i].favorite);
             if (dataArray[i].favorite == 1)
                 addToFavsDiv[i].textContent = "unfavorite"
 
@@ -462,12 +461,8 @@ function clear_favorites() {
     } else {
         x.style.display = 'block';
     }
-    var images_div = document.getElementsByClassName('imageContainer');
 
-    for (var i = 0; i <= num_images; i++) 
-    {
-        images_div[i].style.display = "none";
-    }
-
+    document.getElementById('images').innerHTML = "";
+    num_images = -1;
     request_dump();
 }
