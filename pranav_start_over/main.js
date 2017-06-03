@@ -1,9 +1,9 @@
 // Global variables
-var port = 7821;
-var label_count = {}
-var image_names = {}
+var port = 6758;
+var label_count = {};
+var image_names = {};
 var num_images = -1;
-
+var filtered_images = [];
 var num_labels_in_each_image = -1;
 
 // Dumping function - Works
@@ -342,7 +342,7 @@ function apply_filter() {
     oReq.onload = function() {
 		
         var new_obj = JSON.parse(oReq.responseText);
-		
+		var counter = 0;
 		var images_div = document.getElementsByClassName('imageContainer');
         var is_included = 0;
          
@@ -358,9 +358,35 @@ function apply_filter() {
                 }
                     
                 else
+                {
                     images_div[i].style.display='none';
+                    var found_it = 0;
+                    for(var index = 0; index < filtered_images.length; index++)
+                    {
+                        if(filtered_images[index] == i)
+                            found_it = 1;
+
+                    }
+                    if(found_it ==0)
+                    {
+                        filtered_images[counter] = i;
+                        counter++;
+                    }
+                }
             }
         }
+        console.log(filtered_images);
     }
     oReq.send();
+}
+
+
+function clear_filter(){
+    var images_div = document.getElementsByClassName('imageContainer');
+
+    for(var i = 0; i < filtered_images.length; i++)
+    {
+        images_div[filtered_images[i]].style.display='inline';
+    }
+
 }
