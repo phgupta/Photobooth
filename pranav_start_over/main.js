@@ -69,7 +69,7 @@ function request_dump() {
                     var x_image_name = "x_image" + String(num_images);
 
 		           // var new_label = "<p class=\"a_label\">" + labels[j] + " </p>";
- 		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image  "  + x_image_name + "\" onclick=\"delete_label(this.paerntElement.textContent" + "," + j + "," + num_labels_in_each_image + ")\" />" + labels[j] + "</p>";
+ 		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" style=\"display:none\"class=\"x_image  "  + x_image_name + "\" onclick=\"delete_label(this.paerntElement.textContent" + "," + j + "," + num_labels_in_each_image + ")\" />" + labels[j] + "</p>";
 
 
 
@@ -263,7 +263,7 @@ function add_label(index) {
 
 
         num_labels_in_each_image += 1;
-		var new_label = "<p class=\"a_label\"" + "id=" + num_labels_in_each_image + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + index + "," + num_labels_in_each_image + ")\" />" + button_value + "</p>";
+		var new_label = "<p class=\"a_label\"" + "id=" + num_labels_in_each_image + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\"style=\"display:inline\"class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + index + "," + num_labels_in_each_image + ")\" />" + button_value + "</p>";
 		//var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + index + ")\" />" + button_value + "</p>";
         
         labels_field[index].innerHTML = current_content + new_label;
