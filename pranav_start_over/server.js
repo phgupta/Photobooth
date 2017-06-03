@@ -3,10 +3,7 @@ Add label url:    http://138.68.25.50:7821/query?op=add&img=Hiking.jpg&label=hik
 Delete label url: http://138.68.25.50:7821/query?op=delete&img=skyscraper.jpg&label=sky
 */
 
-
-// Global variables
-var firstLabel = true;
-
+// Add db.close() ?
 
 // Include modules & initialization stuff
 var express = require('express');
@@ -83,13 +80,10 @@ app.get('/query', function (query, res) {
 
 				else 
                 {
-                    if (firstLabel) 
-                    {
+                    if (!data.labels) 
 			            db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [newLabel, imageName], errorCallBack(err)); 
-                        firstLabel = false;
-                    }
 
-                    else
+                    else 
                         db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [data.labels + ", " + newLabel, imageName], errorCallBack(err)); 
                 }
 			});
@@ -204,6 +198,20 @@ app.listen(7821, function() {
 // My functions
 function removeLabel(currentLabel, deleteLabel) {
 
+    var labelArray = currentLabel.split(",");
+    console.log("labelArray before deleting: ", labelArray);
+
+    var index = labelArray.indexOf(deleteLabel);
+
+    if (index > -1)
+    {
+        labelArray.splice(index, 1);
+        console.log("labelArray after deleting: ", labelArray);
+    }
+    
+    return "";
+
+    /*
     var index = currentLabel.indexOf(deleteLabel);
 
     // Removes deleteLabel from currentLabel
@@ -217,4 +225,5 @@ function removeLabel(currentLabel, deleteLabel) {
 
     else
         return "";
+    */
 }
