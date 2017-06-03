@@ -15,7 +15,8 @@ function request_dump() {
     oReq.addEventListener("load", function() {
         var dataArray = JSON.parse(this.responseText);
         console.log("dataArray: ", dataArray);
-        
+        var addToFavsDiv = document.getElementsByClassName("add_to_favs");
+
         for (var i = 0; i < dataArray.length; i++)
         {
             num_images += 1;
@@ -33,6 +34,14 @@ function request_dump() {
             '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs" onclick="favoriteImage(this.parentElement.parentElement.parentElement.id)"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> '
             var imagesDiv = document.getElementById("images");
             imagesDiv.appendChild(imageContainerDiv);
+
+            // Checks if image is favorited or not
+            console.log("favorite: ", dataArray[i].favorite);
+            if (dataArray[i].favorite == 1)
+                addToFavsDiv[i].textContent = "unfavorite"
+
+            else
+                addToFavsDiv[i].textContent = "add to favorites"
 
 
             // Displays image to webpage
