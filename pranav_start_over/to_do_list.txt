@@ -1,6 +1,7 @@
 1. Implement delete_label function.
-2. Handle case when user presses enter in label form.
-3. Favorites sidebar implementation.
-4. Positioning of progress bar.
-5. Check for any small error cases not yet found.
-6. Photobooth Part 2.
+4. Check for any small error cases not yet found.
+    1. On refresh, images that are favorited should have "unfavorite" in the menu option.
+    2. Clicking favorites button doesn't work after the first time.
+    3. Position of progress bar.
+    4. Pressing enter on label_form crashes everything.
+5. Photobooth Part 2.
