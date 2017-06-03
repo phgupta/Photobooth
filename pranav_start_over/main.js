@@ -1,5 +1,5 @@
 // Global variables
-var port = 6758;
+var port = 7821;
 var label_count = {};
 var image_names = {};
 var num_images = -1;
@@ -389,4 +389,56 @@ function clear_filter(){
         images_div[filtered_images[i]].style.display='inline';
     }
 
+}
+
+
+// Makes the XMLHttpRequest for favorite images
+function favoritePressed() {
+    show_hide('favorite_show');
+
+    var url = "http://138.68.25.50:" + port + "/query?op=select_all_favorite";
+
+    // Make XMLHttpRequest()
+    var oReq = new XMLHttpRequest()
+    oReq.open("GET", url, true);
+    oReq.onload = function() {
+        console.log(oReq.responseText);
+
+        var new_obj = JSON.parse(oReq.responseText);	
+		var counter = 0;
+		var images_div = document.getElementsByClassName('imageContainer');
+        var is_included = 0;
+         
+        for (var i = 0; i <= num_images; i++)
+        {
+            var image_name = images_div[i].childNodes[0].childNodes[1].alt;
+            for (var j = 0; j < new_obj.length; j++) 
+            {
+                if(image_name == new_obj[j].fileName)
+                {
+                    images_div[i].style.display='inline';
+                    break;
+                }
+                    
+                else
+                {
+                    images_div[i].style.display='none';
+                    var found_it = 0;
+                    for(var index = 0; index < filtered_images.length; index++)
+                    {
+                        if(filtered_images[index] == i)
+                            found_it = 1;
+
+                    }
+                    if(found_it ==0)
+                    {
+                        filtered_images[counter] = i;
+                        counter++;
+                    }
+                }
+            }
+        }
+        console.log(filtered_images);
+    }
+    oReq.send();
 }

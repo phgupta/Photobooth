@@ -1,10 +1,9 @@
 <!-- 
-1. Filter query.
-2. Implement delete label function.
-3. In home page remove x_image
-4. Dumping function dumps only first image in database.
-5. Photobooth part2
-6. Handle case when user presses enter in label form.
+1. Implement delete label function.
+2. Photobooth part2
+3. Handle case when user presses enter in label form.
+4. Favorites sidebar implementation.
+5. Check for small error cases.
 -->
 
 <!DOCTYPE HTML>
@@ -72,7 +71,7 @@
 						<!-- Favorites Part of the Menu -->
 						<div class="menu_items">
 							<p>
-								<img src="Assets/favoritesIcon.svg" alt="Favorites Icon" onclick="show_hide('favorite_show')"style="width:50px;height:60px;">
+								<img src="Assets/favoritesIcon.svg" alt="Favorites Icon" onclick="favoritePressed()"style="width:50px;height:60px;">
 								<button class = "my_button" onclick="show_hide('favorite_show')">favorites</button>
 							</p>
 						</div>
