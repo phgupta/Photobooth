@@ -1,5 +1,5 @@
 // Global variables
-var port = 7821;
+var port = 6758;
 var label_count = {};
 var image_names = {};
 var num_images = -1;
@@ -77,7 +77,7 @@ function request_dump() {
                     var x_image_name = "x_image" + String(num_images);
 
 		           // var new_label = "<p class=\"a_label\">" + labels[j] + " </p>";
- 		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" style=\"display:none\"class=\"x_image  "  + x_image_name + "\" onclick=\"delete_label(this.paerntElement.textContent" + "," + j + "," + num_labels_in_each_image + ")\" />" + labels[j] + "</p>";
+ 		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" style=\"display:none\"class=\"x_image  "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + j + "," + 'this.parentElement.Id' + ")\" />" + labels[j] + "</p>";
 
 
 
@@ -271,7 +271,7 @@ function add_label(index) {
 
 
         num_labels_in_each_image += 1;
-		var new_label = "<p class=\"a_label\"" + "id=" + num_labels_in_each_image + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\"style=\"display:inline\"class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + index + "," + num_labels_in_each_image + ")\" />" + button_value + "</p>";
+		var new_label = "<p class=\"a_label\"" + "id=" + num_labels_in_each_image + label_count[index] + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\"style=\"display:inline\"class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + num_labels_in_each_image + label_count[index] + "," + index + ",)\" />" + button_value + "</p>";
 		//var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + index + ")\" />" + button_value + "</p>";
         
         labels_field[index].innerHTML = current_content + new_label;
@@ -301,10 +301,10 @@ function add_label(index) {
 
 
 // Delets label
-function delete_label(text, index, label_index) {
+function delete_label(text, label_index, image_index) {
     console.log("text: ", text);
-    console.log("index: ", index);
-    console.log("label index: ", label_index);
+    console.log("label_index: ", label_index);
+    console.log("image_index: ", image_index);
 
     // Delets label from database 
     // XMLHTTPRequest()
