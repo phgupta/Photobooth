@@ -3,5 +3,6 @@
     1. On refresh, images that are favorited should have "unfavorite" in the menu option.
     2. Clicking favorites button doesn't work after the first time.
     3. Position of progress bar.
+        The progress bar should only appear when the user uploads a new image.Right now, it appears anytime we load the page,and anytime we add a new image to the page,even though the image is on the server. It should only appear when uploading images, and look for more buggs. 
     4. Pressing enter on label_form crashes everything.
 5. Photobooth Part 2.
