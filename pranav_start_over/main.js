@@ -334,16 +334,33 @@ function apply_filter() {
     // get the value of the input form
     var user_input = document.getElementById('bottom_filter');
     var input_value = user_input.value;
-   // console.log("User Entered: ", input_value);
     
     // Send a query to server with the user inputed label,asking for all the pictures with the given label
     var url = "http://138.68.25.50:" + port + "/query?op=filter&label=" + input_value;
     var oReq = new XMLHttpRequest();
     oReq.open("GET", url, true);
     oReq.onload = function() {
-        console.log("Recevied from server:");
-        console.log(oReq.responseText);
+		
+        var new_obj = JSON.parse(oReq.responseText);
+		
+		var images_div = document.getElementsByClassName('imageContainer');
+        var is_included = 0;
+         
+        for (var i = 0; i <= num_images; i++)
+        {
+            var image_name = images_div[i].childNodes[0].childNodes[1].alt;
+            for (var j = 0; j < new_obj.length; j++) 
+            {
+                if(image_name == new_obj[j].fileName)
+                {
+                    images_div[i].style.display='inline';
+                    break;
+                }
+                    
+                else
+                    images_div[i].style.display='none';
+            }
+        }
     }
     oReq.send();
-
 }
