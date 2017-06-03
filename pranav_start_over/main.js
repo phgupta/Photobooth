@@ -446,7 +446,13 @@ function favoritePressed() {
 
 // Basically calls request_dump()
 function clear_favorites() {
-
+	
+    var x = document.getElementById('favorite_show');
+    if (x.style.display === 'block') {
+        x.style.display = 'none';
+    } else {
+        x.style.display = 'block';
+    }
     var images_div = document.getElementsByClassName('imageContainer');
 
     for (var i = 0; i <= num_images; i++) 
