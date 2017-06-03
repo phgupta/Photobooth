@@ -84,7 +84,7 @@ app.get('/query', function (query, res) {
 			            db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [newLabel, imageName], errorCallBack(err)); 
 
                     else 
-                        db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [data.labels + "," + newLabel, imageName], errorCallBack(err)); 
+                        db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [data.labels + ", " + newLabel, imageName], errorCallBack(err)); 
                 }
 			});
 		}
@@ -207,10 +207,23 @@ function removeLabel(currentLabel, deleteLabel) {
     {
         labelArray.splice(index, 1);
         console.log("labelArray after deleting: ", labelArray);
-        var result = labelArray.join(",");
-        console.log("stringified labelArray: ", result);
-        return result;
     }
     
     return "";
+
+    /*
+    var index = currentLabel.indexOf(deleteLabel);
+
+    // Removes deleteLabel from currentLabel
+    if (index != -1) 
+    {
+        var updatedLabel = currentLabel.slice(0, index);
+        updatedLabel += currentLabel.slice(index + deleteLabel.length + 2);
+    
+        return updatedLabel;
+    }
+
+    else
+        return "";
+    */
 }

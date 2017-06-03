@@ -92,12 +92,13 @@ function uploadButtonPressed() {
 
     // XMLHttpRequest()
 	var url = "http://138.68.25.50:" + port + "/main";
-    var the_file =  document.getElementById('fileSelector');
+    var selectedFile =  document.getElementById('fileSelector').files[0];
 
-    if("undefined" === typeof(the_file)){
-        console.log("File name is Undefined.") 
+    if("undefined" == typeof(selectedFile)){
+        alert("Choose a file first please before uploading!");
     }
-	var selectedFile = the_file.files[0];
+    else
+    {
     console.log("selectedFile: ", selectedFile);
 	
 	var formData = new FormData(); 
@@ -155,7 +156,7 @@ function uploadButtonPressed() {
         
     };
 	fr.readAsDataURL(selectedFile);
-}
+}}
 
 
 // Shows the menu option - Works
