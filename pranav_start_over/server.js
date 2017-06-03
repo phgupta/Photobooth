@@ -1,9 +1,10 @@
 /*
-Add label url:    http://138.68.25.50:7821/query?op=add&img=Hiking.jpg&label=hike
-Delete label url: http://138.68.25.50:7821/query?op=delete&img=skyscraper.jpg&label=sky
-Filter label url: http://138.68.25.50:7821/query?op=filter&label=xyz
-Favorite url:     http://138.68.25.50:7821/query?op=favorite&img=skyscraper.jpg
-                  http://138.68.25.50:7821/query?op=unfavorite&img=skyscraper.jpg
+Add label url:          http://138.68.25.50:7821/query?op=add&img=Hiking.jpg&label=hike
+Delete label url:       http://138.68.25.50:7821/query?op=delete&img=skyscraper.jpg&label=sky
+Filter label url:       http://138.68.25.50:7821/query?op=filter&label=xyz
+Favorite url:           http://138.68.25.50:7821/query?op=favorite&img=skyscraper.jpg
+                        http://138.68.25.50:7821/query?op=unfavorite&img=skyscraper.jpg
+Favorite sidebar url:   http://138.68.25.50:7821/query?op=select_all_favorite
 */
 
 // Add db.close() ?
@@ -230,6 +231,27 @@ app.get('/query', function (query, res) {
                 }
             });
         }
+    }
+
+    // Query: op=select_all_favorite
+    else if (queryObj.op == "select_all_favorite")
+    {
+        db.all('SELECT * FROM PhotoLabels WHERE favorite = 1', function (err, tableData) {
+        
+            if (err)
+            {
+                console.log("error: ", err);
+                res.status(400);
+                res.send("Query-select_all_favorite: ERROR");
+            }
+
+            else
+            {
+                res.status(200);
+                res.type("text/json");
+                res.send(tableData);
+            }
+        });
     }
 
     function errorCallBack(err) {
