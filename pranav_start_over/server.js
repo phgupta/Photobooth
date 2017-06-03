@@ -6,6 +6,9 @@ Filter label url: http://138.68.25.50:7821/query?op=filter&label=xyz
 
 // Add db.close() ?
 
+// Global variables
+var port = 7821;
+
 // Include modules & initialization stuff
 var express = require('express');
 var path = require('path');
@@ -191,8 +194,8 @@ app.get('/query', function (query, res) {
 
 
 // Main
-app.listen(7821, function() {
-  console.log("Listening on Port 7821...");
+app.listen(port, function() {
+  console.log("Listening on Port" + port + "...");
 });
 
 
