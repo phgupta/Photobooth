@@ -1,0 +1,6 @@
+1. Implement delete_label function.
+2. Handle case when user presses enter in label form.
+3. Favorites sidebar implementation.
+4. Positioning of progress bar.
+5. Check for any small error cases not yet found.
+6. Photobooth Part 2.
