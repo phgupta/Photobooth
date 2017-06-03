@@ -442,3 +442,17 @@ function favoritePressed() {
     }
     oReq.send();
 }
+
+
+// Basically calls request_dump()
+function clear_favorites() {
+
+    var images_div = document.getElementsByClassName('imageContainer');
+
+    for (var i = 0; i <= num_images; i++) 
+    {
+        images_div[i].style.display = "none";
+    }
+
+    request_dump();
+}
