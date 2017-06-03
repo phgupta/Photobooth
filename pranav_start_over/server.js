@@ -1,6 +1,7 @@
 /*
 Add label url:    http://138.68.25.50:7821/query?op=add&img=Hiking.jpg&label=hike
 Delete label url: http://138.68.25.50:7821/query?op=delete&img=skyscraper.jpg&label=sky
+Filter label url: http://138.68.25.50:7821/query?op=filter&label=xyz
 */
 
 // Add db.close() ?
@@ -60,7 +61,7 @@ app.post('/main', function(req, res) {
 });
 
 
-// Queries - Add label, Delete label
+// Queries - Add label, Delete label, Dump, Filter
 app.get('/query', function (query, res) {
 
 	queryObj = querystring.parse(query.url.split("?")[1]);
@@ -84,7 +85,7 @@ app.get('/query', function (query, res) {
 			            db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [newLabel, imageName], errorCallBack(err)); 
 
                     else 
-                        db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [data.labels + ", " + newLabel, imageName], errorCallBack(err)); 
+                        db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [data.labels + "," + newLabel, imageName], errorCallBack(err)); 
                 }
 			});
 		}
@@ -147,20 +148,21 @@ app.get('/query', function (query, res) {
         });
     }
 
-    /*
     // Query: op=filter&label=[label to delete]
     else if (queryObj.op == "filter") {
         var filterLabel = queryObj.label;
 
         if (filterLabel) {
-            db.all('SELECT * FROM PhotoLabels WHERE labels LIKE ?', [%filterLabel%], function (err, tableData) {
-                if (err) {
+            db.all('SELECT * FROM PhotoLabels WHERE labels LIKE ?', ["%" + filterLabel + "%"], function (err, tableData) {
+                if (err) 
+                {
                     console.log("error: ", err);
                     res.status(400);
                     res.send("requested photo not found");
                 }
 
-                else {
+                else 
+                {
                     console.log("got: ", tableData);
                     res.status(200);
                     // CHECK if below line works
@@ -169,7 +171,6 @@ app.get('/query', function (query, res) {
             });
         }
     }
-    */
 
     function errorCallBack(err) {
      
@@ -207,23 +208,10 @@ function removeLabel(currentLabel, deleteLabel) {
     {
         labelArray.splice(index, 1);
         console.log("labelArray after deleting: ", labelArray);
+        var result = labelArray.join(",");
+        console.log("stringified labelArray: ", result);
+        return result;
     }
     
     return "";
-
-    /*
-    var index = currentLabel.indexOf(deleteLabel);
-
-    // Removes deleteLabel from currentLabel
-    if (index != -1) 
-    {
-        var updatedLabel = currentLabel.slice(0, index);
-        updatedLabel += currentLabel.slice(index + deleteLabel.length + 2);
-    
-        return updatedLabel;
-    }
-
-    else
-        return "";
-    */
 }
