@@ -1,5 +1,5 @@
 // Global variables
-var port = 6758;
+var port = 7821;
 var label_count = {}
 var image_names = {}
 var num_images = -1;
@@ -30,7 +30,7 @@ function request_dump() {
             image_names[num_images] = dataArray[i].fileName;
 
             imageContainerDiv.innerHTML = 
-            '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> '
+            '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs" onclick="favoriteImage(this.parentElement.parentElement.parentElement.id)"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> '
             var imagesDiv = document.getElementById("images");
             imagesDiv.appendChild(imageContainerDiv);
 
@@ -125,7 +125,7 @@ function uploadButtonPressed() {
     image_names[num_images] = selectedFile.name
 
     imageContainerDiv.innerHTML = 
-    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div>  <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div>  <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> <div id="image">'
+    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs" onclick="favoriteImage(this.parentElement.parentElement.parentElement.id)"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div>  <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div>  <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> <div id="image">'
     var imagesDiv = document.getElementById("images");
     imagesDiv.appendChild(imageContainerDiv);
 
@@ -208,12 +208,42 @@ function change_tags(index) {
    
     for (var i = 0; i < label_count[index]; i++)
     {
-        if (x_image[i].style.display == 'inline')
-            x_image[i].style.display = 'none';
+        if (x_image[i].style.display == 'none')
+            x_image[i].style.display = 'inline';
 
         else
-            x_image[i].style.display = 'inline';
+            x_image[i].style.display = 'none';
     }
+}
+
+
+// Favorites/Unfavorite button
+function favoriteImage(index)
+{
+    var addToFavsDiv = document.getElementsByClassName('add_to_favs');
+
+    // Toggle between "add to favorites" and "unfavorite"
+    if (addToFavsDiv[index].textContent == "unfavorite")
+    {
+        addToFavsDiv[index].textContent = "add to favorites";
+        var url = "http://138.68.25.50:" + port + "/query?op=unfavorite&img=" + image_names[index];
+    }
+
+    else
+    {
+        addToFavsDiv[index].textContent = "unfavorite";
+        var url = "http://138.68.25.50:" + port + "/query?op=favorite&img=" + image_names[index];
+    }
+
+
+    // Make XMLHttpRequest()
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", url, true);
+
+    oReq.onload = function() {
+        console.log(oReq.responseText);
+    }
+    oReq.send();
 }
 
 

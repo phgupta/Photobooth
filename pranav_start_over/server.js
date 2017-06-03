@@ -2,6 +2,8 @@
 Add label url:    http://138.68.25.50:7821/query?op=add&img=Hiking.jpg&label=hike
 Delete label url: http://138.68.25.50:7821/query?op=delete&img=skyscraper.jpg&label=sky
 Filter label url: http://138.68.25.50:7821/query?op=filter&label=xyz
+Favorite url:     http://138.68.25.50:7821/query?op=favorite&img=skyscraper.jpg
+                  http://138.68.25.50:7821/query?op=unfavorite&img=skyscraper.jpg
 */
 
 // Add db.close() ?
@@ -152,7 +154,8 @@ app.get('/query', function (query, res) {
     }
 
     // Query: op=filter&label=[label to delete]
-    else if (queryObj.op == "filter") {
+    else if (queryObj.op == "filter") 
+    {
         var filterLabel = queryObj.label;
 
         if (filterLabel) {
@@ -170,6 +173,60 @@ app.get('/query', function (query, res) {
                     res.status(200);
                     // CHECK if below line works
                     res.send(tableData);
+                }
+            });
+        }
+    }
+    
+    // Query: op=favorite&img=[image name]
+    else if (queryObj.op == "favorite") 
+    {
+        console.log("inside favorite query");
+        var fav = 1;
+        var imageName = queryObj.img;
+
+        if (imageName)
+        {
+            db.run('UPDATE PhotoLabels SET favorite = ? WHERE fileName = ?', [fav, imageName], function (err, data) {
+                if (err)
+                {
+                    console.log("Error(favorite): ", error);
+                    res.status(400);
+                    res.send("errrror");
+                }
+
+                else
+                {
+                    console.log("got: ", data);
+                    res.status(200);
+                    res.send("favorite set to 1");
+                }
+            });
+        }
+    }
+
+    // Query: op=unfavorite&img=[image name]
+    else if (queryObj.op == "unfavorite") 
+    {
+        console.log("inside unfavorite query");
+        var fav = 0;
+        var imageName = queryObj.img;
+
+        if (imageName)
+        {
+            db.run('UPDATE PhotoLabels SET favorite = ? WHERE fileName = ?', [fav, imageName], function (err, data) {
+                if (err)
+                {
+                    console.log("Error(favorite): ", error);
+                    res.status(400);
+                    res.send("errrror");
+                }
+
+                else
+                {
+                    console.log("got: ", data);
+                    res.status(200);
+                    res.send("favorite set to 0");
                 }
             });
         }
@@ -195,7 +252,7 @@ app.get('/query', function (query, res) {
 
 // Main
 app.listen(port, function() {
-  console.log("Listening on Port" + port + "...");
+  console.log("Listening on Port " + port + "...");
 });
 
 
