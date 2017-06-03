@@ -58,6 +58,7 @@ function request_dump() {
 
 
             // Showing labels of each image        
+            // adding labels for one image at a time.
             var labels_field = document.getElementsByClassName('labels_field');
             for (var j = 0; j < labels.length; j++) 
             {
@@ -67,9 +68,9 @@ function request_dump() {
                     var current_content = labels_field[num_images].innerHTML;
                     var x_image_name = "x_image" + String(num_images);
 
-
 		           // var new_label = "<p class=\"a_label\">" + labels[j] + " </p>";
- 		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image  "  + x_image_name + "\" onclick=\"delete_label()\" />" + labels[j] + "</p>";
+ 		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" class=\"x_image  "  + x_image_name + "\" onclick=\"delete_label(this.paerntElement.textContent" + "," + j + "," + num_labels_in_each_image + ")\" />" + labels[j] + "</p>";
+
 
 
 		            labels_field[num_images].innerHTML = current_content + new_label;
@@ -91,7 +92,13 @@ function uploadButtonPressed() {
 
     // XMLHttpRequest()
 	var url = "http://138.68.25.50:" + port + "/main";
-	var selectedFile = document.getElementById('fileSelector').files[0];
+    var the_file =  document.getElementById('fileSelector');
+
+    if("undefined" === typeof(the_file)){
+        console.log("File name is Undefined.") 
+    }
+	var selectedFile = the_file.files[0];
+    console.log("selectedFile: ", selectedFile);
 	
 	var formData = new FormData(); 
 	formData.append("userfile", selectedFile);
@@ -274,13 +281,11 @@ function delete_label(text, index, label_index) {
     }
     oReq.send();
 
-    /*
     // Deletes label from screen
     var labels_field = document.getElementsByClassName('labels_field');
     var a_label = document.getElementsByClassName('a_label');
     console.log("labels_field: ", labels_field);
-    //labels_field[index].removeChild(a_label[label_index]);
-    */
+    labels_field[index].removeChild(a_label[label_index]);
 }
 
 
@@ -291,4 +296,23 @@ function show_hide(div_id) {
     } else {
         x.style.display = 'block';
     }
+}
+
+function apply_filter() {
+
+    // get the value of the input form
+    var user_input = document.getElementById('bottom_filter');
+    var input_value = user_input.value;
+   // console.log("User Entered: ", input_value);
+    
+    // Send a query to server with the user inputed label,asking for all the pictures with the given label
+    var url = "http://138.68.25.50:" + port + "/query?op=filter&label=" + input_value;
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", url, true);
+    oReq.onload = function() {
+        console.log("Recevied from server:");
+        console.log(oReq.responseText);
+    }
+    oReq.send();
+
 }

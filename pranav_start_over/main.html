@@ -5,7 +5,6 @@
 4. Dumping function dumps only first image in database.
 5. Handle case when Upload button is pressed without uploading image.
 6. Handle case when user presses enter in label form.
-7. Photobooth Part 2
 -->
 
 <!DOCTYPE HTML>
@@ -63,8 +62,8 @@
 						<div id = "filter_show"> 
 							<input type="text" id = "bottom_filter" name="filter" placeholder="filter">	
 							<br>
-							<button class="enter_filter" onclick="dosomething()">enter</button>
-							<button class="clear_filter" onclick="do_something()">clear filter</button>
+							<button class="enter_filter" onclick="apply_filter()">enter</button>
+							<button class="clear_filter" onclick="clear_filter()">clear filter</button>
 		
 						</div>
 					</li>
