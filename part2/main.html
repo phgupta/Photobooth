@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Photobooth</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<meta name="viewport" content="width=device-width">
+</head>
+<body onload="request_dump()">
+	
+    <!-- Header -->
+    <div id="header">
+		<img alt="Photobooth." src="Assets/photoboothLogo.png"/>
+	</div>
+	<hr>
+
+    <!-- Main Body -->
+	<div id="mainContent">
+
+        <!--Images -->
+        <div id="images">
+            <!-- Code added here through JS -->
+        </div>
+
+		<!-- Sidebar (Lovepreet's code) -->
+		<div class = "encompass">	
+			<nav id="menu_box">
+				<ul class="menu">
+					<li>  
+						<!-- Upload Part of the Menue -->
+						<div class = "menu_items">
+							<img class = "icons" src="Assets/uploadIcon-01.svg" alt="Upload Icon" onclick="show_hide('upload_show');" style="width:60px;height:50px;" /> 
+							<button class = "my_button" onclick="show_hide('upload_show')">upload</button>
+						</div>
+						<div id = "upload_show">
+							<p class="back_up_upload">
+							<input id="fileSelector" class="uploadDetailButton" type="file">  </input>
+							<br>
+							<button class="uploadDetailButton" type="button" onclick="uploadButtonPressed()">upload</button>
+
+						</div>
+					</li>
+					
+					<li> 
+						<!-- Filter Part of the Menu -->
+						<div class="menu_items">
+							<p>
+								<img src="Assets/filterIcon-01.svg" alt="Filter Icon" onclick="show_hide('filter_show')" style="width:60px;height:50px;"/>
+								<button class="my_button" id="my_filter_button" onclick="show_hide('filter_show')">filter</button>
+							</p> 
+					    </div>
+					
+						<div id = "filter_show"> 
+							<input type="text" id = "bottom_filter" name="filter" placeholder="filter">	
+							<br>
+							<button class="enter_filter" onclick="apply_filter()">enter</button>
+							<button class="clear_filter" onclick="clear_filter()">clear filter</button>
+		
+						</div>
+					</li>
+					
+					<li> 
+						<!-- Favorites Part of the Menu -->
+						<div class="menu_items">
+							<p>
+								<img src="Assets/favoritesIcon.svg" alt="Favorites Icon" onclick="favoritePressed()"style="width:50px;height:60px;">
+								<button class = "my_button" onclick="favoritePressed()">favorites</button>
+							</p>
+						</div>
+						<div id = "favorite_show"> 
+                            <button class="clear_filter" onclick="clear_favorites()"> clear favorites </button>
+                        </div>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</body>
+</html>
+
+<script  src="main.js"> </script>
