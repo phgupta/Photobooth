@@ -10,7 +10,7 @@ Favorite sidebar url:   http://138.68.25.50:7821/query?op=select_all_favorite
 // Add db.close() ?
 
 // Global variables
-var port = 7821;
+var port = 6758;
 
 // Include modules & initialization stuff
 var express = require('express');
@@ -19,12 +19,63 @@ var formidable = require('formidable');
 var querystring = require('querystring');
 var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
+var LIVE = true;
+var request = require('request');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 
 // Database initialization
 var sqlite3 = require("sqlite3").verbose();
 var dbFile = "photos.db";
 var db = new sqlite3.Database(dbFile);
+
+
+
+// URL containing the API key 
+// professor's API key
+url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCed8rPNBMEB3hvgGLfgWpVgTPlT0ZX67M';
+// below is our API key
+// url = 'https://vision.googleapis.com/v1/images:annotate?key=AlzaSyBLnUSNiv2xhjcPqgzl60ruY6YAp7RKaHg';
+
+function annotateImage(requestObject) {
+    if (LIVE) {
+	// The code that makes a request to the API
+	// Uses the Node request module, which packs up and sends off
+	// an XMLHttpRequest. 
+	request(
+	    { // HTTP header stuff
+		url: url,
+		method: "POST",
+		headers: {"content-type": "application/json"},
+		// stringifies object and puts into HTTP request body as JSON 
+		json: requestObject,
+	    },
+	    // callback function for API request
+	    APIcallback
+	);
+    } else {  // not live! return fake response
+	// call fake callback in 2 seconds
+	console.log("not live");
+	setTimeout(fakeAPIcallback, 2000);
+    }
+}
+
+	
+// live callback function
+function APIcallback(err, APIresponse, body) {
+    if ((err) || (APIresponse.statusCode != 200)) {
+	console.log("Got API error"); 
+    } else {
+	APIresponseJSON = body.responses[0];
+	console.log(APIresponseJSON);
+    }
+}
+
+// Comment out to make this a module:
+//annotateImage();
+
+// Uncomment to make this a module:
+// exports.annotateImage = annotateImage;
 
 
 // Static Home page
@@ -39,14 +90,24 @@ app.get('/main', function(req, res) {
 });
 
 
+
 // Dynamic Main Page - Uploads imageName to database
 app.post('/main', function(req, res) {
     
     var form = new formidable.IncomingForm();
 	form.parse(req);
 
-	form.on('fileBegin', function(name, file) {
+
+	
+    form.on('fileBegin', function(name, file) {
 		file.path = __dirname + '/public/Uploads/' + file.name;
+
+        		
+	// An object that gets stringified and sent to the API in the
+	// body of an HTTP request
+	requestObject = {
+  "requests": [ {"image": {"source": {"imageUri": "http://138.68.25.50:" + port + "/Uploads/" + file.name}},"features": [{ "type": "LABEL_DETECTION" }]}]
+}
 	
 		db.serialize(function() {
 			db.run('INSERT OR REPLACE INTO PhotoLabels VALUES (?, "", 0)', [file.name], function errorCallBack(err, tableData) {
@@ -57,6 +118,33 @@ app.post('/main', function(req, res) {
 					console.log("tableData: ", tableData);
 			});
 		});
+	// The code that makes a request to the API
+	// Uses the Node request module, which packs up and sends off
+	// an XMLHttpRequest. 
+	request(
+	    { // HTTP header stuff
+		url: url,
+		method: "POST",
+		headers: {"content-type": "application/json"},
+		// stringifies object and puts into HTTP request body as JSON 
+		json: requestObject,
+	    },
+	    var label_array[5];
+	    // callback function for API request
+	    function APIcallback(err, APIresponse, body) {
+			if ((err) || (APIresponse.statusCode != 200)) {
+				console.log("Got API error"); 
+			} else {
+				APIresponseJSON = body.responses[0];
+				console.log(APIresponseJSON);
+				console.log("tags: ");
+				for(var i = 0; i < 5; i++)
+				{
+					label = APIresponseJSON.labelAnnotations[i].description;
+				}
+    }
+}
+	);
 	});
 
 	form.on('end', function() {
