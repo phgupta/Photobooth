@@ -140,17 +140,21 @@ app.post('/main', function(req, res) {
 				APIresponseJSON = body.responses[0];
 				console.log(APIresponseJSON);
 				console.log("labels: ");
-				for (var i = 0; i < 5; i++)
-				{
-                    if (i == 0)
-                         newLabel = APIresponseJSON.labelAnnotations[i].description;
+                if(!APIresponseJSON.labelAnnotations)
+                    console.log("Error from Google API Service.");
+                else
+                {
+                    for (var i = 0; i < 5; i++)
+				    {
+                        if (i == 0)
+                            newLabel = APIresponseJSON.labelAnnotations[i].description;
 					
-                    else
-                        newLabel = newLabel + "," + APIresponseJSON.labelAnnotations[i].description;
+                        else
+                            newLabel = newLabel + "," + APIresponseJSON.labelAnnotations[i].description;
 					
-                    console.log(newLabel);
+                        console.log(newLabel);
+                    }
                 }
-
                 
 				db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [newLabel, imageName], function errorCallBack(err, tableData) {
                     if (err)
