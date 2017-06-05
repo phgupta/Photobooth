@@ -96,18 +96,14 @@ app.post('/main', function(req, res) {
     
     var form = new formidable.IncomingForm();
 	form.parse(req);
-
-
 	
     form.on('fileBegin', function(name, file) {
 		file.path = __dirname + '/public/Uploads/' + file.name;
-
         		
-	// An object that gets stringified and sent to the API in the
-	// body of an HTTP request
-	requestObject = {
-  "requests": [ {"image": {"source": {"imageUri": "http://138.68.25.50:" + port + "/Uploads/" + file.name}},"features": [{ "type": "LABEL_DETECTION" }]}]
-}
+	    // An object that gets stringified and sent to the API in the body of an HTTP request
+	    requestObject = {
+            "requests": [ {"image": {"source": {"imageUri": "http://138.68.25.50:" + port + "/Uploads/" + file.name}},"features": [{ "type": "LABEL_DETECTION" }]}]
+        }
 	
 		db.serialize(function() {
 			db.run('INSERT OR REPLACE INTO PhotoLabels VALUES (?, "", 0)', [file.name], function errorCallBack(err, tableData) {
@@ -118,34 +114,59 @@ app.post('/main', function(req, res) {
 					console.log("tableData: ", tableData);
 			});
 		});
-	// The code that makes a request to the API
-	// Uses the Node request module, which packs up and sends off
-	// an XMLHttpRequest. 
-	request(
+
+	    // The code that makes a request to the API
+	    // Uses the Node request module, which packs up and sends off an XMLHttpRequest. 
+	    var imageName = file.name;
+	    var newLabel = "";
+	
+        request(
 	    { // HTTP header stuff
-		url: url,
-		method: "POST",
-		headers: {"content-type": "application/json"},
-		// stringifies object and puts into HTTP request body as JSON 
-		json: requestObject,
+		    url: url,
+		    method: "POST",
+		    headers: {"content-type": "application/json"},
+		    // stringifies object and puts into HTTP request body as JSON 
+		    json: requestObject,
 	    },
-	    var label_array[5];
+
 	    // callback function for API request
 	    function APIcallback(err, APIresponse, body) {
-			if ((err) || (APIresponse.statusCode != 200)) {
+			if ((err) || (APIresponse.statusCode != 200)) 
+            {
 				console.log("Got API error"); 
-			} else {
+			} 
+            else 
+            {
 				APIresponseJSON = body.responses[0];
 				console.log(APIresponseJSON);
-				console.log("tags: ");
-				for(var i = 0; i < 5; i++)
-				{
-					label = APIresponseJSON.labelAnnotations[i].description;
-				}
-    }
-}
-	);
-	});
+				console.log("labels: ");
+                if(!APIresponseJSON.labelAnnotations)
+                    console.log("Error from Google API Service.");
+                else
+                {
+                    for (var i = 0; i < 5; i++)
+				    {
+                        if (i == 0)
+                            newLabel = APIresponseJSON.labelAnnotations[i].description;
+					
+                        else
+                            newLabel = newLabel + "," + APIresponseJSON.labelAnnotations[i].description;
+					
+                        console.log(newLabel);
+                    }
+                }
+                
+				db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [newLabel, imageName], function errorCallBack(err, tableData) {
+                    if (err)
+                        console.log("Error(app.post('/main')): ", err);
+
+                    else 
+                        console.log("No error");
+                }); 
+			}
+        }
+        );
+    });
 
 	form.on('end', function() {
 		console.log('Success!');
