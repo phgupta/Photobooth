@@ -1,10 +1,10 @@
 // Global variables
 var port = 7821;
-var label_count = {};
-var image_names = {};
-var num_images = -1;
+var label_count = {};               // Indexed with image_index - starts at 0
+var image_names = {};               // Indexed with image_index
+var image_labels = {};              // Labels in each image
+var num_images = -1;                // Used in dump() and uploadButton() - starts at -1
 var filtered_images = [];
-var num_labels_in_each_image = -1;
 
 // Dumping function - Works
 function request_dump() {
@@ -62,6 +62,7 @@ function request_dump() {
         
             
             // Parsing the labels
+            image_labels[num_images] = dataArray[i].labels;
             var labels = dataArray[i].labels.split(",");
 
 
@@ -76,10 +77,7 @@ function request_dump() {
                     var current_content = labels_field[num_images].innerHTML;
                     var x_image_name = "x_image" + String(num_images);
 
-		           // var new_label = "<p class=\"a_label\">" + labels[j] + " </p>";
  		            var new_label = "<p class=\"a_label\"> <img src=\"Assets/removeTagButton.png\" alt=\"x\" style=\"display:none\"class=\"x_image  "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + j + "," + i + ")\" />" + labels[j] + "</p>";
-
-
 
 		            labels_field[num_images].innerHTML = current_content + new_label;
 		
@@ -107,7 +105,6 @@ function uploadButtonPressed() {
     }
     else
     {
-    console.log("selectedFile: ", selectedFile);
 	
 	var formData = new FormData(); 
 	formData.append("userfile", selectedFile);
@@ -159,9 +156,6 @@ function uploadButtonPressed() {
 		hamburgerButton[num_images].style.position = "absolute";
 		hamburgerButton[num_images].style.bottom = "0%";
 		hamburgerButton[num_images].style.right = "0%";
-
-       
-        
     };
 	fr.readAsDataURL(selectedFile);
 }}
@@ -262,23 +256,26 @@ function add_label(index) {
 	var button_value = button[index].value;
 	var num_labels = label_count[index]; 
     var labels_field = document.getElementsByClassName('labels_field');
-	
+
     if(num_labels < 10)
     {
+        // Updating image_labels variable
+        image_labels[index] = image_labels[index] + "," + button_value;
+
+
         // Adding the new label in the label textbox    
         var current_content = labels_field[index].innerHTML;
         var x_image_name = "x_image" + String(index);
 
-        num_labels_in_each_image += 1;
+        
+        // Incrementing number of labels of image and getting image name
+        ++label_count[index];
+        var imgName = image_names[index];
 
-		var new_label = "<p class=\"a_label\"" + "id=" + num_labels_in_each_image + label_count[index] + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\"style=\"display:inline\"class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + label_count[index]  + "," + index + ",)\" />" + button_value + "</p>";
+		var new_label = "<p class=\"a_label\"" + "id=" + label_count[index] + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\"style=\"display:inline\"class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + label_count[index]  + "," + index + ",)\" />" + button_value + "</p>";
         
         labels_field[index].innerHTML = current_content + new_label;
 
-
-        // Incrementing number of labels of image and getting image name
-        label_count[index]++;
-        var imgName = image_names[index];
 
         // XMLHTTPRequest()
         // Query: op=add&img=[image filename]&label=[label to add]
@@ -301,31 +298,53 @@ function add_label(index) {
 
 // Delets label
 function delete_label(text, label_index, image_index) {
-    console.log("text: ", text);
-    console.log("label_index: ", label_index);
-    console.log("image_index: ", image_index);
 
-    // Delets label from database 
+    // CHECK WHY THIS IS HAPPENING
+    // Trim white space character in the beginning of text
+    text = text.substr(1);
+    
+    // Deletes label from screen
+    
+    var button = document.getElementsByClassName("label_input");
+    var labels_field = document.getElementsByClassName("labels_field");
+    var x_image_name = "x_image" + String(image_index);
+    
+    // Clearing all labels
+    labels_field[image_index].innerHTML = "";
+    
+    // Updating labelsArray & image_labels
+    var labelsArray = image_labels[image_index].split(",");
+    var ind = labelsArray.indexOf(text);
+    if (ind > -1)
+    {
+        console.log("im in here");
+        labelsArray.splice(ind, 1);
+        image_labels[image_index] = labelsArray.join(",");
+        --label_count[image_index];
+    }
+
+    for (var i = 0; i < labelsArray.length; i++)
+    {
+		var new_label = "<p class=\"a_label\"" + "id=" + label_count[image_index] + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\"style=\"display:inline\"class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + label_count[image_index]  + "," + image_index + ",)\" />" + labelsArray[i] + "</p>";
+   
+        labels_field[image_index].innerHTML += new_label; 
+    }
+
+ 
     // XMLHTTPRequest()
     // Query: op=delete&img=[image filename]&label=[label to delete]
-    var url_gen = "http://138.68.25.50:" + port + "/query?op=delete&img=";
-    var url = url_gen + image_names[index] + "&label=" + text;
-
+    var imgName = image_names[image_index];
+    var url = "http://138.68.25.50:" + port + "/query?op=delete&img=" + imgName + "&label=" + text;
+	    
     var oReq = new XMLHttpRequest();
-    oReq.open("GET", url, true);
+	oReq.open("GET", url, true);  
 
-    oReq.onload = function() {
-        console.log(oReq.responseText);
-    }
-    oReq.send();
-
-    // Deletes label from screen
-    var labels_field = document.getElementsByClassName('labels_field');
-    var a_label = document.getElementsByClassName('a_label');
-    console.log("labels_field: ", labels_field);
-    labels_field[index].removeChild(a_label[label_index]);
+	oReq.onload = function() {
+		console.log(oReq.responseText);
+	}
+	oReq.send();
 }
-
+	
 
 function show_hide(div_id) {
     var x = document.getElementById(div_id);
