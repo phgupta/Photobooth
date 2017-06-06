@@ -10,7 +10,7 @@ Favorite sidebar url:   http://138.68.25.50:7821/query?op=select_all_favorite
 // Add db.close() ?
 
 // Global variables
-var port = 6758;
+var port = 7821;
 
 // Include modules & initialization stuff
 var express = require('express');
@@ -30,7 +30,6 @@ var dbFile = "photos.db";
 var db = new sqlite3.Database(dbFile);
 
 
-
 // URL containing the API key 
 // professor's API key
 url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCed8rPNBMEB3hvgGLfgWpVgTPlT0ZX67M';
@@ -40,8 +39,7 @@ url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCed8rPNBMEB3hv
 function annotateImage(requestObject) {
     if (LIVE) {
 	// The code that makes a request to the API
-	// Uses the Node request module, which packs up and sends off
-	// an XMLHttpRequest. 
+	// Uses the Node request module, which packs up and sends of an XMLHttpRequest. 
 	request(
 	    { // HTTP header stuff
 		url: url,
@@ -96,8 +94,12 @@ app.post('/main', function(req, res) {
     
     var form = new formidable.IncomingForm();
 	form.parse(req);
+
+    // var to access it in form.on('end',...)
+    var fileName = "";
 	
     form.on('fileBegin', function(name, file) {
+        fileName = file.name;
 		file.path = __dirname + '/public/Uploads/' + file.name;
         		
 	    // An object that gets stringified and sent to the API in the body of an HTTP request
@@ -115,9 +117,13 @@ app.post('/main', function(req, res) {
 			});
 		});
 
-	    // The code that makes a request to the API
+    });
+
+	form.on('end', function() {
+	    
+        // The code that makes a request to the API
 	    // Uses the Node request module, which packs up and sends off an XMLHttpRequest. 
-	    var imageName = file.name;
+	    var imageName = fileName;
 	    var newLabel = "";
 	
         request(
@@ -156,22 +162,30 @@ app.post('/main', function(req, res) {
                     }
                 }
                 
-				db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [newLabel, imageName], function errorCallBack(err, tableData) {
-                    if (err)
-                        console.log("Error(app.post('/main')): ", err);
+                db.serialize(function() {
+				    db.run('UPDATE PhotoLabels SET labels = ? WHERE fileName = ?', [newLabel, imageName], function errorCallBack(err, tableData) {
+                        if (err)
+                            console.log("Error(app.post('/main')): ", err);
 
-                    else 
-                        console.log("No error");
-                }); 
+                        else
+                            console.log("No error. Image successfully uploaded and annotated."); 
+                    });
+
+                    db.get('SELECT labels FROM PhotoLabels WHERE fileName = ?', [imageName], function errorCallBack(err, tableData) {
+                        if (err)
+                            console.log("Error: ", err);
+
+                        else
+                        {
+                            console.log("Worksssssssss Yaaaaaay");
+                            res.status(200);
+                            res.send(tableData);
+                        }
+                    });
+                });
 			}
         }
         );
-    });
-
-	form.on('end', function() {
-		console.log('Success!');
-		res.status(201);
-		res.send('Recieved file');
 	});
 });
 

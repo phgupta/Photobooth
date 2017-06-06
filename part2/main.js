@@ -1,4 +1,5 @@
 // Global variables
+//var port = 7821;
 var port = 7821;
 var label_count = {};               // Indexed with image_index - starts at 0
 var image_names = {};               // Indexed with image_index
@@ -31,7 +32,7 @@ function request_dump() {
             image_names[num_images] = dataArray[i].fileName;
 
             imageContainerDiv.innerHTML = 
-            '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs" onclick="favoriteImage(this.parentElement.parentElement.parentElement.id)"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div> <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> '
+            '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs" onclick="favoriteImage(this.parentElement.parentElement.parentElement.id)"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div> <input type="text" name="label" class="label_input" placeholder="label" style="display:none" onkeypress="enterpressed(event,this.parentElement.id)">  <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> '
             var imagesDiv = document.getElementById("images");
             imagesDiv.appendChild(imageContainerDiv);
 
@@ -96,6 +97,9 @@ function request_dump() {
 // Uploads image - Works
 function uploadButtonPressed() {
 
+    // Stores GoogleAPI generated lables
+    var labels_obj = "";
+
     // XMLHttpRequest()
 	var url = "http://138.68.25.50:" + port + "/main";
     var selectedFile =  document.getElementById('fileSelector').files[0];
@@ -103,62 +107,88 @@ function uploadButtonPressed() {
     if("undefined" == typeof(selectedFile)){
         alert("Choose a file first please before uploading!");
     }
+
     else
     {
 	
-	var formData = new FormData(); 
-	formData.append("userfile", selectedFile);
+	    var formData = new FormData(); 
+	    formData.append("userfile", selectedFile);
 
-	var oReq = new XMLHttpRequest();
-	oReq.open("POST", url, true);  
+	    var oReq = new XMLHttpRequest();
+	    oReq.open("POST", url, true);  
 
-	oReq.onload = function() {
-		console.log(oReq.responseText);
-	}
-	oReq.send(formData);
+	    oReq.onload = function() {
+            
+            labels_obj = JSON.parse(oReq.responseText);
+            console.log("typeof labels_obj: ", typeof(labels_obj));
+            console.log("typeof labels_obj.labels: ", typeof(labels_obj.labels));
 
-
-    // Add new imageContainer div
-    num_images += 1;
+            // Add new imageContainer div
+            num_images += 1;
     
-    var imageContainerDiv = document.createElement("div");
-    imageContainerDiv.setAttribute("class", "imageContainer");
-    imageContainerDiv.setAttribute("id", num_images);
+            var imageContainerDiv = document.createElement("div");
+            imageContainerDiv.setAttribute("class", "imageContainer");
+            imageContainerDiv.setAttribute("id", num_images);
     
-    // Keeping track of image name and number of labels with respect to each image's id
-    label_count[num_images] = 0;
-    image_names[num_images] = selectedFile.name
+            // Keeping track of image name and number of labels with respect to each image's id
+            label_count[num_images] = 0;
+            image_names[num_images] = selectedFile.name
 
-    imageContainerDiv.innerHTML = 
-    '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs" onclick="favoriteImage(this.parentElement.parentElement.parentElement.id)"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div>  <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div>  <form> <input type="text" name="label" class="label_input" placeholder="label" style="display:none"> </form> <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> <div id="image">'
-    var imagesDiv = document.getElementById("images");
-    imagesDiv.appendChild(imageContainerDiv);
+            imageContainerDiv.innerHTML = 
+            '<div class="image"> <img class="theImage"> <div class="show_favorites_tags" style="display:none"> <button class="change_tag" onclick="change_tags(this.parentElement.parentElement.parentElement.id)"> change tags </button> <button class="add_to_favs" onclick="favoriteImage(this.parentElement.parentElement.parentElement.id)"> add to favorites </button> </div> <input class="hamburgerButton"type="image" onclick="show_favs_tags(this.parentElement.parentElement.id)" src="Assets/optionsTriangle.png" style="display:none"/> </div> <div class="labels_field"> </div> <div id="seconds" class="seconds"><div id="bar" class="bar animating"></div></div> <input type="text" name="label" class="label_input" placeholder="label" style="display:none" onkeypress="enterpressed(event,this.parentElement.id)">  <button class="my_add_button" onclick="add_label(this.parentElement.id)">Add</button> '
+            var imagesDiv = document.getElementById("images");
+            imagesDiv.appendChild(imageContainerDiv);
 
 
-    // Displays image to webpage
-	var image = document.getElementsByClassName('theImage');
-	var hamburgerButton = document.getElementsByClassName('hamburgerButton');
-	var imageContainer = document.getElementsByClassName('image');
-    var progressBar = document.getElementsByClassName('seconds');
-	var fr = new FileReader();
+            // Displays image to webpage
+	        var image = document.getElementsByClassName('theImage');
+	        var hamburgerButton = document.getElementsByClassName('hamburgerButton');
+	        var imageContainer = document.getElementsByClassName('image');
+            var progressBar = document.getElementsByClassName('seconds');
+	        var fr = new FileReader();
 
-	fr.onload = function () {
-		image[num_images].src = fr.result;
-		image[num_images].style.width = "100%";
-		image[num_images].style.height = "100%";
-		image[num_images].alt = selectedFile.name;
+	        fr.onload = function () {
+		        image[num_images].src = fr.result;
+		        image[num_images].style.width = "100%";
+		        image[num_images].style.height = "100%";
+		        image[num_images].alt = selectedFile.name;
 
         
-        progressBar[num_images].style.display = "inline-block";        
+                progressBar[num_images].style.display = "inline-block";        
 
-		imageContainer[num_images].style.position = "relative";
-		hamburgerButton[num_images].style.display = "inline-block";
-		hamburgerButton[num_images].style.position = "absolute";
-		hamburgerButton[num_images].style.bottom = "0%";
-		hamburgerButton[num_images].style.right = "0%";
-    };
-	fr.readAsDataURL(selectedFile);
-}}
+		        imageContainer[num_images].style.position = "relative";
+		        hamburgerButton[num_images].style.display = "inline-block";
+		        hamburgerButton[num_images].style.position = "absolute";
+		        hamburgerButton[num_images].style.bottom = "0%";
+		        hamburgerButton[num_images].style.right = "0%";
+
+
+                // Displays labels 
+                var labels_field = document.getElementsByClassName("labels_field");
+                var x_image_name = "x_image" + String(num_images);
+
+                // Clearing all labels
+                labels_field[num_images].innerHTML = "";
+    
+                // Updating label_count & image_labels
+                var labelsArray = labels_obj.labels.split(",");
+                image_labels[num_images] = labelsArray.join(",");
+                label_count[num_images] = labelsArray.length; // Should always be 5
+
+                for (var i = 0; i < labelsArray.length; i++)
+                {
+
+		            var new_label = "<p class=\"a_label\"" + "id=" + label_count[num_images] + "> <img src=\"Assets/removeTagButton.png\" alt=\"x\"style=\"display:none\"class=\"x_image "  + x_image_name + "\" onclick=\"delete_label(this.parentElement.textContent" + "," + label_count[num_images]  + "," + num_images + ",)\" />" + labelsArray[i] + "</p>";
+                    labels_field[num_images].innerHTML += new_label;
+                }
+
+            };
+
+	        fr.readAsDataURL(selectedFile);
+	    }
+	    oReq.send(formData);
+    }
+}
 
 
 // Shows the menu option - Works
@@ -483,4 +513,22 @@ function clear_favorites() {
     document.getElementById('images').innerHTML = "";
     num_images = -1;
     request_dump();
+}
+
+function enterpressed(event, image_index)
+{
+    if(event.which == 13 || event.keyCode ==13)
+    {
+        add_label(image_index);
+        document.getElementsByClassName('label_input')[image_index].value = "";
+	}
+}
+
+function apply_filter_enter(event) {
+	if(event.which == 13 || event.keyCode ==13)
+	{
+		apply_filter();
+		document.getElementById('bottom_filter').value = "";
+	}
+	
 }
