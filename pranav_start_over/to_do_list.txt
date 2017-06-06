@@ -1,4 +1,3 @@
 1. Check for any small error cases not yet found.
     1. Position of progress bar - The progress bar should only appear when the user uploads a new image. Right now, it appears anytime we load the page, and anytime we add a new image to the page, even though the image is on the server. It should ONLY appear when uploading images. Look for more cases where the progress bar appears and remove them.
-2. Photobooth Part 2.
-3. Mobile version for both.
+2. Mobile version for both.
