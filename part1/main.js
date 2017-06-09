@@ -1,6 +1,5 @@
 // Global variables
-//var port = 7821;
-var port = 6758;
+var port = 7821;
 var label_count = {};               // Indexed with image_index - starts at 0
 var image_names = {};               // Indexed with image_index
 var image_labels = {};              // Labels in each image
