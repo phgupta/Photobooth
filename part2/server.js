@@ -7,7 +7,6 @@ Favorite url:           http://138.68.25.50:7821/query?op=favorite&img=skyscrape
 Favorite sidebar url:   http://138.68.25.50:7821/query?op=select_all_favorite
 */
 
-// Add db.close() ?
 
 // Global variables
 var port = 7821;
@@ -32,9 +31,11 @@ var db = new sqlite3.Database(dbFile);
 
 // URL containing the API key 
 // professor's API key
-url = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCed8rPNBMEB3hvgGLfgWpVgTPlT0ZX67M';
-// below is our API key
-// url = 'https://vision.googleapis.com/v1/images:annotate?key=AlzaSyBLnUSNiv2xhjcPqgzl60ruY6YAp7RKaHg';
+
+
+// INSERT YOUR KEY INSIDE THE VAR `Your_API_Key`
+var Your_API_Key = '';
+url = 'https://vision.googleapis.com/v1/images:annotate?key=' + Your_API_Key;
 
 function annotateImage(requestObject) {
     if (LIVE) {
