@@ -15,3 +15,7 @@ To use this project, you must use your own Google Cloud API key.
 Replace this line with your own key in Part2/server.js:
 ``` var Your_API_Key = ''; ```
 
+# Members:
+* Andro Nooh
+* Pranav Gupta
+* Lovepreet Sangha
