@@ -16,6 +16,6 @@ Replace this line with your own key in Part2/server.js:
 ``` var Your_API_Key = ''; ```
 
 # Members:
-* Andro Nooh
-* Pranav Gupta
-* Lovepreet Sangha
+* Andro Nooh (https://github.com/aknooh)
+* Pranav Gupta (https://github.com/phgupta)
+* Lovepreet Sangha (https://github.com/LSSangha)
